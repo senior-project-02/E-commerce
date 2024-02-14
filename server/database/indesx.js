@@ -24,7 +24,7 @@ const User = sequelize.define('user', {
     name: DataTypes.STRING(45),
     lastname: DataTypes.STRING(45),
     email: DataTypes.STRING(45),
-    password: DataTypes.STRING(45),
+    password: DataTypes.STRING(225),
     image: DataTypes.TEXT,
     role: DataTypes.STRING(45)
   });
@@ -39,7 +39,6 @@ const User = sequelize.define('user', {
     namep: DataTypes.STRING(45),
     descriptionp: DataTypes.TEXT,
     sizep: DataTypes.STRING(45),
-    categoryp: DataTypes.STRING(45),
     quantityp: DataTypes.INTEGER,
     ratingp: {
       type: DataTypes.INTEGER,
@@ -92,6 +91,14 @@ const User = sequelize.define('user', {
     },
     status: DataTypes.STRING(45)
   });
+  const Category = sequelize.define('category',{
+    idcategory:{
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name:DataTypes.STRING(45)
+  })
   
   
   const CartHasProduct = sequelize.define('cart_has_product', {
@@ -99,32 +106,33 @@ const User = sequelize.define('user', {
   });
   
 
-  User.hasMany(Product, { foreignKey: 'user_iduser' });
+  User.hasMany(Product, { foreignKey: 'user_iduser' ,onDelete: 'CASCADE', onUpdate: 'CASCADE'});
   Product.belongsTo(User, { foreignKey: 'user_iduser' });
   
-  Product.hasMany(Image, { foreignKey: 'product_idproduct' });
+  Product.hasMany(Image, { foreignKey: 'product_idproduct' ,onDelete: 'CASCADE', onUpdate: 'CASCADE'});
   Image.belongsTo(Product, { foreignKey: 'product_idproduct' });
   
-  User.hasMany(Whislist, { foreignKey: 'user_iduser' });
+  User.hasMany(Whislist, { foreignKey: 'user_iduser',onDelete: 'CASCADE', onUpdate: 'CASCADE' });
   Whislist.belongsTo(User, { foreignKey: 'user_iduser' });
-  Product.hasMany(Whislist, { foreignKey: 'product_idproduct' });
+  Product.hasMany(Whislist, { foreignKey: 'product_idproduct',onDelete: 'CASCADE', onUpdate: 'CASCADE' });
   Whislist.belongsTo(Product, { foreignKey: 'product_idproduct' });
   
-  User.hasMany(Paiement, { foreignKey: 'user_iduser' });
+  User.hasMany(Paiement, { foreignKey: 'user_iduser',onDelete: 'CASCADE', onUpdate: 'CASCADE' });
   Paiement.belongsTo(User, { foreignKey: 'user_iduser' });
   
-  User.hasMany(Cart, { foreignKey: 'user_iduser' });
+  User.hasMany(Cart, { foreignKey: 'user_iduser',onDelete: 'CASCADE', onUpdate: 'CASCADE' });
   Cart.belongsTo(User, { foreignKey: 'user_iduser' });
   
   Cart.belongsToMany(Product, { through: 'cart_has_product', foreignKey: 'cart_idcart' });
   Product.belongsToMany(Cart, { through: 'cart_has_product', foreignKey: 'product_idproduct' });
-  
- 
+
+  Category.hasMany(Product,{foreignKey:'category_idcategory',onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+  Product.belongsTo(Category,{foreignKey:'category_idcategory'})
   sequelize.sync({ force: false }).then(() => {
     console.log('All is good.');
   }).catch(err => {
     console.error('err :', err);
   });
   
-  module.exports = { User, Product, Image, Whislist, Paiement, Cart, CartHasProduct };
+  module.exports = { User, Product, Image, Whislist, Paiement, Cart, CartHasProduct,Category };
 
