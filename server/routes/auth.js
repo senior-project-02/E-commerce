@@ -24,6 +24,7 @@ router.get('/getAllUsers',userController.getAll)
 //delete one user
 router.delete('/delteuser/:id',userController.deleteUserById)
 router.post('/signup',userController.SingUp)
+router.get("/login",userController.loginIn)
     
 
 module.exports = router;

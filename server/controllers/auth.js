@@ -1,6 +1,8 @@
 const db=require('../database/indesx')
-
+const jwt =require ('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const crypto=require ('crypto');
+
 
 
 
@@ -32,7 +34,7 @@ module.exports = {
   
 
   getUserByRole:  function (req,res ) {
-    
+   
       db.User.findAll({ where: {  role:req.params.role  } }).then((data)=>{
         res.status(200).json(data)
       })
@@ -54,16 +56,19 @@ module.exports = {
       password:hashedPassword,
       image:req.body.image,
       role :req.body.role
-    }    
+    }
         db.User.create(newUser).then((data)=>{
         res.status(200).send(data)
       })
       
     . catch ((err)=>{
+        (res.length > 0) 
+        res.json("email used") 
       console.log(err);
     }) 
  
     },
+
     getAll: function(req,res){
       db.User.findAll({}).then((data)=>{
         res.status(200).send(data)
@@ -73,6 +78,7 @@ module.exports = {
       console.log(err);
     }) 
     },
+
     deleteUserById: function (req, res) {
         id=req.params.id
         db.User.destroy({where:{iduser:id}}).then(()=>{
@@ -81,17 +87,42 @@ module.exports = {
         .catch((err)=>{
             res.status(500).json(err)
         })
-    }
+    },
       
     
-// sign in functions 
+// Login in functions 
+
+loginIn :function (req, res)  {
     
-  }
+    const secretKey = crypto.randomBytes(32).toString('hex')
+  
+    console.log( secretKey,"this is the secretkey");
+
+    const { name, password } = req.body
+    db.User.findOne({name})
+    .then((user) => {
+        if (!user) {
+            return res.status(401).json({ error: 'Authentication failed' });
+        }
+        const passwordMatch =bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'Authentication failed' });
+        }
+        try {
+          const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
+              expiresIn: '1h',
+          });
+          res.status(200).json({ token });
+        } catch (error) {
+          res.status(500).json({ error: 'Login failed' });
+        }
+    })
+   
+}
 
 
 
-
-
+}
 
     
 
