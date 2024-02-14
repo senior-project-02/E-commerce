@@ -43,5 +43,28 @@ const deleteProduct=(req,res)=>{
    })
 }
 
+const manageStock=(req,res)=>{
+    id=req.params.id
+    updateStock=req.body.quantityp
+    db.Product.update({quantityp:updateStock},{where:{idproduct:id}})
+    .then(()=>{
+        res.json('updatedStock')
+    })
+    .catch((err)=>{
+        res.status.json(err)
+    })
+}
+const managePrice=(req,res)=>{
+    id=req.params.id
+    updateprice=req.body.pricep
+    db.Product.update({pricep:updateprice},{where:{idproduct:id}})
+    .then(()=>{
+        res.json('updatedPrice')
+    })
+    .catch((err)=>{
+        res.status.json(err)
+    })
+}
 
-module.exports={createProduct,getProduct,updateProduct,deleteProduct}
+
+module.exports={createProduct,getProduct,updateProduct,deleteProduct,manageStock,managePrice}

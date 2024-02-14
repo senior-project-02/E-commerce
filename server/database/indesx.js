@@ -45,6 +45,10 @@ const User = sequelize.define('user', {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
+    pricep: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     promop: {
       type: DataTypes.INTEGER,
       defaultValue: 0
