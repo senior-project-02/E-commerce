@@ -10,10 +10,10 @@ const Productimage = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center">
-        <div className="flex flex-col justify-between h-600 mt-4 w-[200px]">
+    <div className="flex justify-center items-center w-1/2">
+        <div className="flex flex-col justify-between  mt-4 w-1/6">
         {smallImages.map((image, index) => (
-            <div className="w-[160px] m-2">
+            <div className="w-full m-2">
                 <img key={index} src={image} alt={`Small ${index}`} className="p-2 hover:scale-125" />
             </div> 
         ))}

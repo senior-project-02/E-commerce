@@ -3,7 +3,7 @@ import 'boxicons'
 const Detailsproduct = () => {
   const [count, setCount] = useState(1);
   return (
-    <div className="w-[600px] h-[450px]">
+    <div className="w-1/3 h-[450px] ml-4">
       <div class="flex-col">
         <div class=" flex-col text-black text-xl font-semibold font-Inter'] leading-normal-wide">
           <div>Havic HV G-92 Gamepad</div> <div class="mt-2">$192.00</div>
