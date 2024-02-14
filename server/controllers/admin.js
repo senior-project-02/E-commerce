@@ -1,0 +1,43 @@
+const db=require('../database/indesx')
+
+const createCategory=(req,res)=>{
+    const data=req.body
+    db.Category.create(data).then(()=>{
+        res.json('category created')
+    })
+    .catch((err)=>{
+        res.satatus(500).json(err)
+    })
+}
+
+const getAllCategory=(req,res)=>{
+    db.Category.findAll().then((data)=>{
+        res.json(data)
+    })
+    .catch((err)=>{
+        res.satatus(500).json(err)
+    })
+}
+
+const updateCategory=(req,res)=>{
+    const id=req.params.id
+    const data=req.body
+    db.Category.update(data,{where:{idcategory:id}}).then(()=>{
+        res.json('category updated')
+    })
+    .catch((err)=>{
+        res.satatus(500).json(err)
+    })
+}
+
+const deleteCategory=(req,res)=>{
+    const id=req.params.id
+    db.Category.destroy({where:{idcategory:id}}).then(()=>{
+        res.json('category deleted')
+    })
+    .catch((err)=>{
+        res.satatus(500).json(err)
+    })
+}
+
+module.exports={createCategory,getAllCategory,updateCategory,deleteCategory}
