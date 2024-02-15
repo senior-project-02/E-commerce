@@ -1,6 +1,13 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 function Relatedproduct() {
+  const [product,setProduct]=useState([])
+  useEffect(() => {
+    axios.get(`http://localhost:8000/cart/someproduct/1`).then((res) => {
+      setProduct(res.data.slice(0,3));
+      console.log(res.data)
+    });
+  }, [])
   return (
     <div className="w-96 h-96 flex-col  gap-14 inline-flex">
   <div className="justify-start items-center gap-4 inline-flex">

@@ -11,10 +11,10 @@ function classNames(...classes) {
 function Nav() {
   return (
     <>
-      <div className="w-full h-12 pl-[445px] pr-[136px] py-3 left-0 top-0 absolute bg-black justify-end items-center inline-flex">
+      <div style={{textAlign:"center"}} className="w-full h-12  pl-96 pr-[136px] py-3 bg-black justify-center items-center inline-flex">
         <div className="justify-start items-start gap-[231px] inline-flex">
           <div className="justify-start items-center gap-2 flex">
-            <div className="w-[474px] h-[18px] text-neutral-50 text-sm font-normal font-['Poppins'] leading-[21px]">
+            <div className="w-[474px] h-[18px]  text-neutral-50 text-sm font-normal font-['Poppins'] leading-[21px]">
               Summer Sale For All Swim Suits And Free Express Delivery - OFF
               50%!
             </div>
@@ -31,15 +31,15 @@ function Nav() {
         </div>
       </div>
       {/* THE NAv bar */}
-      <div className="left-[135px] top-[88px] absolute justify-start items-center gap-[148px] inline-flex">
-        <div className="justify-start items-start gap-[190px] flex">
-          <div className="w-[118px] h-6 justify-center items-center flex">
+      <div  style={{marginTop:"3%" , marginLeft:"8.4%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
+        <div className="justify-center items-start gap-[11.8rem] flex">
+          <div className="w-[7.3rem] h-6 justify-center items-center flex">
             <div className="text-black text-2xl font-bold font-['Inter'] leading-normal tracking-wide">
               Exclusive
             </div>
           </div>
           <div className="justify-start items-start gap-12 flex">
-            <div className="flex-col justify-start items-center inline-flex">
+            <div className="flex-col justify-center items-center inline-flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
                <a href='/'>Home</a> 
               </div>
@@ -64,7 +64,7 @@ function Nav() {
             </div>
           </div>
         </div>
-        <div className="justify-start items-center gap-6 flex">
+        <div className="justify-center items-center gap-6 flex">
           <div className="pl-5 pr-3 py-[7px] bg-neutral-100 rounded flex-col justify-center items-center gap-2.5 inline-flex">
             <div className="justify-center items-center gap-[34px] inline-flex">
               <input className="opacity-50 text-black text-xs font-normal font-['Poppins'] leading-[18px] pl-5 pr-3 py-[7px] bg-neutral-100 rounded flex-col justify-center items-center gap-2.5 inline-flex" type="text" id="lname" name="lname" placeholder="What are you looking for?" />
