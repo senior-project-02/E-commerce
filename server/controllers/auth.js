@@ -114,13 +114,13 @@ loginIn :function (req, res)  {
           const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
               expiresIn: '1h',
           });
-          res.status(200).json({ token });
+          res.status(200).json({token: token });
         } catch (error) {
-          res.status(500).json({ error: 'Login failed' });
-        }
+          res.status(500).json({ error: 'Login failed' }); 
+        } 
     })
    
-},
+}, 
 // getUserData : (req, res) => {
 //   //verify the JWT token generated for the user
 //   jwt.verify(req.token, 'privatekey', (err, authorizedData) => {

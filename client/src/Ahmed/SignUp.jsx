@@ -3,7 +3,6 @@ import axios from 'axios'
 import './SignUp.css'
 function SignUp() {
 const [name,setName]=useState("")
-const [lastname,setLastname]=useState("")
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
 const [role,setRole]=useState("") 
@@ -12,7 +11,6 @@ const [role,setRole]=useState("")
     const sign=()=>{
         axios.post("http://localhost:8000/auth/signup",{
             name:name,
-            lastname:lastname,
             email:email,
             password:password,
             role:role 
@@ -69,7 +67,7 @@ const [role,setRole]=useState("")
   </div>
   <div className="Frame760 left-0 top-[200px] absolute justify-start items-center gap-[129px] inline-flex">
     <div className="SideImage pt-[75px] bg-slate-300 rounded-tr rounded-br justify-end items-center flex">
-      <img className="DlBeatsnoop1 w-[919px] h-[706px]" src="https://www.shutterstock.com/image-vector/mobile-phone-represent-front-shop-260nw-1719475720.jpg" />
+      <img className="DlBeatsnoop1 w-[919px] h-[706px]" src="https://media.istockphoto.com/id/1213907347/vector/3d-smartphone-online-shopping-concepts.jpg?s=612x612&w=0&k=20&c=aTMEyPgfWIdltv0uQoZa_QkgMoitcZDaHaSQOX3L47A=" />
     </div>
     <div className="Frame759 flex-col justify-start items-start gap-12 inline-flex">
       <div className="Frame753 flex-col justify-start items-start gap-6 flex">
