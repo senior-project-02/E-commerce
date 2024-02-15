@@ -2,7 +2,7 @@ const {DataTypes, Sequelize} = require('sequelize')
 const mysql = require('mysql2')
 
 
-const sequelize = new Sequelize('e-commerce', 'root', '22802888', {
+const sequelize = new Sequelize('e-commerce', 'root', 'mars', {
 
     host:'localhost',
     dialect:'mysql'

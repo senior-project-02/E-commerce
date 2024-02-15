@@ -2,8 +2,8 @@ import 'boxicons'
 
 function Over() {
     return (
-        <>
-            <div className="left-[249px] top-[5161px] absolute justify-center items-center gap-[88px] inline-flex">
+        <div style={{display:"flex"}}  className=" mt-20 justify-center">
+            <div   className=" justify-center items-center gap-[88px] inline-flex">
                 <div className="flex-col justify-start items-center gap-6 inline-flex">
                     <div className="w-20 h-20 relative">
                         <div className="w-20 h-20 left-0 top-0 absolute">
@@ -57,7 +57,7 @@ function Over() {
                 </div>
             </div>
          
-        </>
+        </div>
     )
 }
 export default Over;

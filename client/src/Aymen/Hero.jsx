@@ -1,7 +1,9 @@
+import Slider from "./Slider.jsx";
+
 function Hero() {
   return (
-    <>
-      <div className="left-[135px] top-[182px] absolute flex-col justify-start items-start gap-4 inline-flex">
+    <div style={{display:"flex" , flexDirection:"row"}}>
+      <div style={{marginTop:"3%" , marginLeft:"8.4%"}} className=" flex-col justify-start items-start gap-4 inline-flex">
         <div className="justify-start items-start gap-[51px] inline-flex">
           <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
             Woman’s Fashion
@@ -36,7 +38,13 @@ function Hero() {
           Health &amp; Beauty
         </div>
       </div>
-<div className="w-px">
+<Slider/>
+   </div>
+  );
+}
+export default Hero
+
+{/* <div className="w-px">
       <div id="indicators-carousel" className="relative w-full" data-carousel="static">
     <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
         <div className="hidden duration-700 ease-in-out" data-carousel-item="active">
@@ -79,13 +87,7 @@ function Hero() {
         </span>
     </button>
 </div>
-</div>
-
-   </>
-  );
-}
-export default Hero
-
+</div> */}
 {/* <div className="w-[892px] h-[344px] left-[413px] top-[182px] absolute bg-black">
    <img className="w-[496px] h-[352px] left-[396px] top-[16px] absolute" src="https://via.placeholder.com/496x352"/>
    <div className="left-[64px] top-[58px] absolute justify-start items-center gap-6 inline-flex">
