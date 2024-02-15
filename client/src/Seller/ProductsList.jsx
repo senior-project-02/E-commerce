@@ -7,6 +7,7 @@ const TABLE_HEAD = ["Product", "Sales", "Rating","Quantity", "Price","",""];
 
  
 const  ProductList=()=> {
+  
     const [products,setProducts]=useState([])
     console.log('setData',products)
     useEffect(()=>{
@@ -95,6 +96,7 @@ const  ProductList=()=> {
                     {pricep}
                   </Typography>
                 </td>
+                
                 <td className={classes}>
                   <Typography
                     as="a"
