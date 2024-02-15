@@ -17,6 +17,10 @@ const  ProductList=()=> {
             console.log('err when i want to fetch data of product',err)
         })
     },[])
+
+    const deleteProduct=(id)=>{
+      axios.delete(`http://localhost:8000/seller/deleteProduct/${id}`)
+    }
   return (
     
     <Card className="h-full w-full overflow-scroll">
@@ -40,7 +44,7 @@ const  ProductList=()=> {
           </tr>
         </thead>
         <tbody>
-          {products.map(({ namep, quantityp, pricep,ratingp }, index) => {
+          {products.map(({ idproduct,namep, quantityp, pricep,ratingp }, index) => {
             const isLast =2;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
@@ -110,7 +114,7 @@ const  ProductList=()=> {
                     color="blue-gray"
                     className="font-medium"
                   >
-                    <box-icon name='trash' ></box-icon>
+                    <box-icon name='trash' onClick={() => {deleteProduct(idproduct),window.location.reload()} } ></box-icon>
                   </Typography>
                 </td>
               </tr>
