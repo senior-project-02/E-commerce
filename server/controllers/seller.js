@@ -114,4 +114,10 @@ const updateImage=(req,res)=>{
         res.status(500).json(err)
     })
 }
-module.exports={createProduct,getProduct,updateProduct,deleteProduct,manageStock,managePrice,createImage,getImages,deleteImage,updateImage}
+const getCategoryByname=(req,res)=>{
+    const name=req.params.name
+    db.Category.findAll({where:{name:name}}).then((data)=>{
+        res.json(data)
+    })
+}
+module.exports={createProduct,getProduct,updateProduct,deleteProduct,manageStock,managePrice,createImage,getImages,deleteImage,updateImage,getCategoryByname}
