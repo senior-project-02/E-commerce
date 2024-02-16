@@ -5,6 +5,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import Login from './Ahmed/Login';
 import SignUp from './Ahmed/SignUp'
 import Home from './Aymen/Home';
+import Account from './Ahmed/Account';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
+      <Route path='/Account' element={<Account/>}/>
 
       </Routes>
       </Router>

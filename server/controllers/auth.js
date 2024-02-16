@@ -124,71 +124,40 @@ loginIn: async function (req, res) {
 
 
 
+
 updateUser: async function (req, res) {
+
   try {
-    const id = req.params.id; 
-    const userToUpdate = await db.User.findByPk(id);
+      const { name, password, newPassword } = req.body;
+      console.log(req.body,"this is the body");
+    const userToUpdate = await db.User.findOne({
+      where: {
+        name: req.body.name,
+      },
+    });
+    console.log( userToUpdate.password,"heloooooo");
     if (!userToUpdate) {
       return res.status(404).json({ error: 'User not found' });
     }
-    const isPasswordValid = bcrypt.compareSync(req.body.password, userToUpdate.password);
-  
+
+    const isPasswordValid =await bcrypt.compare(password, userToUpdate.password);
+ console.log(isPasswordValid,"jjjjjjjjjjjjjjjj");
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid Password' });
 
     }
-    await db.User.update(
-      {
-        name: req.body.name,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        image: req.body.image,
-        
-      },
-      {
-        where: { iduser: id }   
-      }
-    );
-    res.json({ success: true, message: 'User updated successfully' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-},
-
-updatepassword: async function (req, res) {
-  try {
-    const hashedPassword = bcrypt.hashSync(req.body.password, 8)
-    const id = req.params.id;
-    const userToUpdate = await db.User.findByPk(id);
-
-    if (!userToUpdate) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    await db.User.update({
-      password: hashedPassword
-    }, {
-      where: { iduser: id }
-    });
-
-    res.json({ success: true, message: 'Password updated successfully' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    const  hashedNewPassword = await bcrypt.hashSync(newPassword, 10);
+    await userToUpdate.update({name},{ password : hashedNewPassword }) ;
+    console.log(hashedNewPassword,"hash pass");
+     return res.status(200).json({userToUpdate:'Password updated successfully'});
+    } catch (error) {
+      console.error('Error updating password:', error);
+      return res.status(500).json({ message: 'Internal server error' });
   }
 }
 
-  
-
 
 }
-
-
-
-
-
-
 
     
 
