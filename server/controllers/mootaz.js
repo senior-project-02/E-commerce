@@ -11,7 +11,7 @@ const Oneproduct = async (req, res) => {
     });
     res.send(result);
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
   }
 };
 const Somecategories = async (req, res) => {
@@ -26,7 +26,7 @@ const Somecategories = async (req, res) => {
     console.log(result);
     res.send(result);
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
   }
 };
 const Images = async (req, res) => {
@@ -39,7 +39,7 @@ const Images = async (req, res) => {
     });
     res.send(result);
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
   }
 };
 const Allproduct = async (req, res) => {
@@ -47,7 +47,7 @@ const Allproduct = async (req, res) => {
     const result = await db.Product.findAll({});
     res.send(result);
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
   }
 };
 const Cart = async (req, res) => {
@@ -61,7 +61,7 @@ const Cart = async (req, res) => {
     });
     res.json(result);
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
   }
 };
 const Createcart = async (req, res) => {
@@ -71,7 +71,7 @@ const Createcart = async (req, res) => {
       res.send(result.data);
     })
     .catch((err) => {
-    console.log(err);;
+    console.log(err);
     });
 };
 const Updatecart = async (req, res) => {
@@ -87,7 +87,7 @@ const Updatecart = async (req, res) => {
       res.json(result);
     })
     .catch((err) => {
-      res.status(500).json(err);
+      console.log(err);
     });
 };
 const Insertcarthasproduct = async (req, res) => {
@@ -97,7 +97,7 @@ const Insertcarthasproduct = async (req, res) => {
       res.json(d);
     })
     .catch((err) => {
-      res.status(500).json(err);
+      console.log(err);
     });
 };
 const Productfromcard = async (req, res) => {
@@ -111,7 +111,7 @@ const Productfromcard = async (req, res) => {
     });
     res.send(result);
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
   }
 };
 const Removeproductfromcart=async(req,res)=>{
@@ -137,7 +137,7 @@ const Namecategorie = async (req, res) => {
     });
     res.send(result);
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
   }
 }
 
