@@ -2,28 +2,30 @@ import 'boxicons'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 function Nav() {
+  const navigate = useNavigate();
+ 
   return (
     <>
       
       {/* THE NAv bar */}
-      <div  style={{marginTop:"3%" , marginLeft:"8.4%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
+      <div  style={{marginTop:"1%" , marginLeft:"8.4%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
         <div className="justify-center items-start gap-[11.8rem] flex">
           <div className="w-[7.3rem] h-6 justify-center items-center flex">
             <div className="text-black text-2xl font-bold font-['Inter'] leading-normal tracking-wide">
               SELLER
             </div>
           </div>
-          <div className="justify-start items-start gap-12 flex">
+          <div className="justify-start items-start gap-12 flex" style={{ cursor: 'pointer' }} >
             <div className="flex-col justify-center items-center inline-flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-               <a href='/'>Product</a> 
+              Product 
               </div>
               <div className="w-12 h-[0px] opacity-50 justify-center items-center inline-flex">
                 <div className="w-12 h-[0px] border border-black"></div>
@@ -31,17 +33,17 @@ function Nav() {
             </div>
             <div className="w-[66px] h-6 justify-center items-center flex">
               <p className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href='/'> Category</a>
+                 Category
               </p>
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
-              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href='/'>Add </a>
+              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={()=>{navigate("/Seller/AddProduct")}}>
+                Add 
               </div>
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href='/'>About</a>
+                About
               </div>
             </div>
           </div>
