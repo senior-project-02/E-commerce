@@ -1,4 +1,9 @@
 import React from 'react'
+
+import Productcart from "./componant mootaz/Productcart"
+import Productdetails from './componant mootaz/Productdetails'
+
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Ahmed/Login';
 import SignUp from './Ahmed/SignUp'
@@ -12,8 +17,15 @@ import AddProduct from './Seller/AddProduct'
 
 
 
+
 function App() {
   return (
+
+    <>
+    <Productcart/>
+     
+    
+
     <div>
 
 <Router>
@@ -31,6 +43,7 @@ function App() {
       </Router>
 
     </div>
+
 
   );
 }

@@ -11,6 +11,7 @@ const sequelize = new Sequelize('e-commerce', 'root', 'asd12345hope@@', {
 
 
 
+
     host:'localhost',
     dialect:'mysql'
 })
