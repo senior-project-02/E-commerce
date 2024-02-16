@@ -6,7 +6,7 @@ const crypto=require ('crypto');
 
 
 
-
+const secretKey = crypto.randomBytes(32).toString('hex');
 
 module.exports = {
 
@@ -45,6 +45,12 @@ module.exports = {
       
     
   },
+
+
+
+
+
+
 
   SingUp:  function (req, res) {
     const hashedPassword = bcrypt.hashSync(req.body.password, 8)
@@ -94,51 +100,37 @@ module.exports = {
     
 // Login in functions 
 
-loginIn :function (req, res)  {
-    
-    const secretKey = crypto.randomBytes(32).toString('hex')
-  
-    console.log( secretKey,"this is the secretkey");
 
-    const { name, password } = req.body
-    db.User.findOne({name})
-    .then((user) => {
-        if (!user) {
-            return res.status(401).json({ error: 'Authentication failed' });
-        }
-        const passwordMatch =bcrypt.compare(password, user.password);
-        if (!passwordMatch) {
-            return res.status(401).json({ error: 'Authentication failed' });
-        }
-        try {
-          const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
-              expiresIn: '1h',
-          });
-          res.status(200).json({token: token });
-        } catch (error) {
-          res.status(500).json({ error: 'Login failed' }); 
-        } 
-    })
-   
-}, 
-// getUserData : (req, res) => {
-//   //verify the JWT token generated for the user
-//   jwt.verify(req.token, 'privatekey', (err, authorizedData) => {
-//     if(err){
-//       //If error send Forbidden (403)
-//       console.log('ERROR: Could not connect to the protected route');
-//       res.sendStatus(403);
-//     } else {
-//       //If token is successfully verified, we can send the autorized data 
-//       res.json({
-//         message: 'Successful log in',
-//         authorizedData
-//       });
-//       console.log('SUCCESS: Connected to protected route');
-//     }
-//   });
-// }
-  
+
+loginIn: async function (req, res) {
+  try {
+    const userResults = await db.User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    });
+
+    if (!userResults) {
+      return res.json('Invalid email');
+    }
+
+    console.log('Outside getUserByEmail:', userResults);
+
+    const isPasswordValid = bcrypt.compareSync(req.body.password, userResults.password);
+
+    if (!isPasswordValid) {
+      res.json('Invalid Password');
+    } else {
+      const token = jwt.sign({ email: userResults.email, username: userResults.username ,iduser: userResults.iduser }, secretKey, { expiresIn: '1h' });
+      res.json({ token: token });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json(error);
+  }
+}
+
+
 
 
 
