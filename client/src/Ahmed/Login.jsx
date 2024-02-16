@@ -12,7 +12,8 @@ function Login() {
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
 const [token,setToken]=useState("")
-const user = jwtDecode(token)
+// const user = jwtDecode(token)
+const [user, setUser] = useState(null) 
 console.log(user,"the token decoded");
 
 Cookies.set('token', token, { expires: 7, secure: true });
@@ -20,11 +21,11 @@ const sajl=()=>{
         axios.post("http://localhost:8000/auth/login",{
            email: email,
            password: password
-         
        }).then((response)=>{
-           console.log(response.data)
            setToken(response.data.token)
-         
+           const tkn = jwtDecode(response.data.token)
+           setUser(tkn)
+
        }).catch ((error)=>{console.log(error)} )  
 }
 useEffect(() => {
@@ -62,7 +63,8 @@ useEffect(() => {
         className="login__input"
         placeholder="email"
         onChange={(e)=>{setEmail(e.target.value)}}
-      />
+    />
+    
     </div>
     <div className="flex-col justify-start items-start gap-2 flex">
       <div className="opacity-40 text-black text-base font-normal font-['Poppins'] leading-normal"></div>
