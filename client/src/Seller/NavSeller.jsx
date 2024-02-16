@@ -2,46 +2,30 @@ import 'boxicons'
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 function Nav() {
+  const navigate = useNavigate();
+ 
   return (
     <>
-      <div style={{textAlign:"center"}} className="w-full h-12  pl-96 pr-[136px] py-3 bg-black justify-center items-center inline-flex">
-        <div className="justify-start items-start gap-[231px] inline-flex">
-          <div className="justify-start items-center gap-2 flex">
-            <div className="w-[474px] h-[18px]  text-neutral-50 text-sm font-normal font-['Poppins'] leading-[21px]">
-              Summer Sale For All Swim Suits And Free Express Delivery - OFF
-              50%!
-            </div>
-            <div className="text-center text-neutral-50 text-sm font-semibold font-['Poppins'] underline leading-normal">
-              ShopNow
-            </div>
-          </div>
-          <div className="justify-center items-center gap-[5px] flex">
-            <div className="text-neutral-50 text-sm font-normal font-['Poppins'] leading-[21px]">
-              English
-            </div>
-            <div className="w-6 h-6 pl-1.5 pr-[5.27px] pt-2 pb-[8.22px] justify-center items-center flex"></div>
-          </div>
-        </div>
-      </div>
+      
       {/* THE NAv bar */}
-      <div  style={{marginTop:"3%" ,width:"100%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
+      <div  style={{marginTop:"1%" , marginLeft:"8.4%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
         <div className="justify-center items-start gap-[11.8rem] flex">
           <div className="w-[7.3rem] h-6 justify-center items-center flex">
             <div className="text-black text-2xl font-bold font-['Inter'] leading-normal tracking-wide">
-              Exclusive
+              SELLER
             </div>
           </div>
-          <div className="justify-start items-start gap-12 flex">
+          <div className="justify-start items-start gap-12 flex" style={{ cursor: 'pointer' }} >
             <div className="flex-col justify-center items-center inline-flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-               <a href='/'>Home</a> 
+              Product 
               </div>
               <div className="w-12 h-[0px] opacity-50 justify-center items-center inline-flex">
                 <div className="w-12 h-[0px] border border-black"></div>
@@ -49,17 +33,17 @@ function Nav() {
             </div>
             <div className="w-[66px] h-6 justify-center items-center flex">
               <p className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href='/'> Contact</a>
+                 Category
               </p>
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
-              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href='/'>About</a>
+              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={()=>{navigate("/Seller/AddProduct")}}>
+                Add 
               </div>
             </div>
-            <div className="w-[61px] h-6 justify-center items-center flex">
+            <div className="w-12 h-6 justify-center items-center flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href=''>Sign Up</a>
+                About
               </div>
             </div>
           </div>
@@ -74,8 +58,7 @@ function Nav() {
             </div>
           </div>
           <div className="justify-center items-center gap-4 flex">
-            <a href='/wishList'> <box-icon name='heart' ></box-icon> </a>
-            <a href='/cart'>   <box-icon name='cart' ></box-icon></a>
+            
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
