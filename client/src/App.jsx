@@ -1,9 +1,4 @@
 import React from 'react'
-
-import Productcart from "./componant mootaz/Productcart"
-import Productdetails from './componant mootaz/Productdetails'
-
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Ahmed/Login';
 import SignUp from './Ahmed/SignUp'
@@ -17,15 +12,8 @@ import AddProduct from './Seller/AddProduct'
 
 
 
-
 function App() {
   return (
-
-    <>
-    <Productcart/>
-     
-    
-
     <div>
 
 <Router>
@@ -33,17 +21,16 @@ function App() {
 
       <Route path='/' element={<Home/>}/>
       <Route path='/productDetails' element={<Detailsproduct/>}/>
-      
+
       <Route path='/Login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/Seller' element={<Dashboard/>}/>
       <Route path='/Seller/AddProduct' element={<AddProduct/>}/>
-      
+
       </Routes>
       </Router>
 
     </div>
-
 
   );
 }
