@@ -56,9 +56,10 @@ const Cart = async (req, res) => {
     const result = await db.Cart.findAll({
       where: {
         user_iduser: id,
+        status:"encours",
       },
     });
-    res.send(result);
+    res.json(result);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -76,7 +77,6 @@ const Createcart = async (req, res) => {
 const Updatecart = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
-
   await db.Cart.update(data, {
     where: {
       idcart: id,
@@ -127,6 +127,19 @@ const Removeproductfromcart=async(req,res)=>{
             console.log(err)
         })
 }
+const Namecategorie = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = await db.Category.findAll({
+      where: {
+        idcategory: id,
+      },
+    });
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
 
 module.exports = {
   Oneproduct,
@@ -138,5 +151,6 @@ module.exports = {
   Updatecart,
   Productfromcard,
   Insertcarthasproduct,
-  Removeproductfromcart
+  Removeproductfromcart,
+  Namecategorie
 };

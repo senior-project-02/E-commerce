@@ -7,7 +7,7 @@ const Detailsproduct = () => {
   const [product, setProduct] = useState({});
   // const {idproduct}=useParams()
   useEffect(() => {
-    axios.get(`http://localhost:8000/cart/oneproduct/1`).then((res) => {
+    axios.get(`http://localhost:8000/cart/oneproduct/8`).then((res) => {
       setProduct(res.data[0]);
     });
   }, []);
@@ -15,22 +15,20 @@ const Detailsproduct = () => {
     <div className="w-1/3 h-[450px] ml-4">
       <div className="flex-col">
         <div className=" flex-col text-black text-xl font-semibold font-Inter'] leading-normal-wide">
-          <div>Havic HV G-92 Gamepad</div> <div className="mt-2">$192.00</div>
+          <div>{product.namep}</div> <div className="mt-2">${product.pricep}.00</div>
         </div>
         <div className="w-full h-[1px] bg-gray-300 mt-4"></div>
         <div className="flex flex-col mt-4">
           <div className="flex justify-between">
             <div className="text-black text-lg font-normal font-['Poppins'] leading-[21px]">
-              (150 Reviews)
+              ({product.ratingp} Reviews)
             </div>
             <div className="text-green-500 text-sm font-normal font-['Poppins'] leading-[21px]">
               In Stock
             </div>
           </div>
           <div className="text-black  text-xl font-normal font-['Poppins'] leading-[21px] mt-2">
-            PlayStation 5 Controller Skin High quality vinyl with air channel
-            adhesive for easy bubble free install &amp; mess free removal
-            Pressure sensitive.
+            {product.descriptionp}
           </div>
         </div>
         <div className="w-full h-[1px] bg-gray-300 mt-4"></div>
