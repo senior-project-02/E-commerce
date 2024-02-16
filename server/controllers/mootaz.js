@@ -67,11 +67,11 @@ const Cart = async (req, res) => {
 const Createcart = async (req, res) => {
   const data = req.body;
   const d = await db.Cart.create(data)
-    .then(() => {
-      res.json(d);
+    .then((result) => {
+      res.send(result.data);
     })
     .catch((err) => {
-      res.status(500).json(err);
+    console.log(err);;
     });
 };
 const Updatecart = async (req, res) => {

@@ -28,19 +28,21 @@ const Productcart = () => {
     const x=carttt.data[0]
     x.status="end"
 
-    await axios.put(`http://localhost:8000/cart/updatecart/${carttt.data[0].idcart}`,x).then(()=>{
-      console.log("updated")
+    const u= await axios.put(`http://localhost:8000/cart/updatecart/${carttt.data[0].idcart}`,x).then((res)=>{
+      console.log("updated",res.data)
       })
-      const obj={
-        status:"encours",
-        user_iduser:"1"
-      }
-      await axios.post(`http://localhost:8000/cart/createcart`,obj).then(()=>{
-      console.log("create card")
-      })
+     
     } catch(err){
       console.log(err)
     }
+    const obj={
+      status:"encours",
+      user_iduser:"1"
+    }
+    axios.post('http://localhost:8000/cart/createcart',obj)
+    .then(()=>{
+    console.log("create card")
+    }).catch((err)=>console.log(err,'gvhbhb'))
   }
   const inc = (Id) => {
     setProducts(() =>
