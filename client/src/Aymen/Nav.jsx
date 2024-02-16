@@ -31,7 +31,7 @@ function Nav() {
         </div>
       </div>
       {/* THE NAv bar */}
-      <div  style={{marginTop:"3%" , marginLeft:"8.4%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
+      <div  style={{marginTop:"3%" ,width:"100%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
         <div className="justify-center items-start gap-[11.8rem] flex">
           <div className="w-[7.3rem] h-6 justify-center items-center flex">
             <div className="text-black text-2xl font-bold font-['Inter'] leading-normal tracking-wide">
