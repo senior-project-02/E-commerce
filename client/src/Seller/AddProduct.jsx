@@ -11,6 +11,7 @@ const AddProduct = () => {
     const [quantity, setQuantity] = useState(0)
     const [price, setPrice] = useState(0)
     const [promotion, setPromotion] = useState(0)
+    const [color,setColor]=useState('')
     const [category, setCategory] = useState('')
     const [idCategory, setIdCategory] = useState(0)
     const [AllCategory, setAllCategory] = useState([])
@@ -87,7 +88,7 @@ const AddProduct = () => {
 
         <div className="SignUp w-full bg-white">
             <NavSeller />
-            <div className="Line3 w-full h-0 left-0 justify-center items-center inline-flex"style={{marginTop:"5%" }}>
+            <div className="Line3 w-full h-0 left-0 justify-center items-center inline-flex"style={{marginTop:"4%" }}>
                 <div className="Line3 w-full h-[0px] origin-top-left rotate-180 opacity-30 border border-black"></div>
             </div>
             <div className="Frame760 justify-around items-center flex">
@@ -109,8 +110,9 @@ const AddProduct = () => {
                                     <input
                                         type="text"
                                         className="login__input"
-                                        placeholder="Description"
-                                        onChange={(e) => { setDescription(e.target.value) }}
+                                        placeholder="Color"
+                                        value={color}
+                                        onChange={(e) => { setColor(e.target.value) }}
                                     />
                                 </div>
                                 <div className="flex flex-col justify-start items-start gap-2">
@@ -142,6 +144,13 @@ const AddProduct = () => {
                                     />
                                 </div>
                             </div>
+                            <textarea
+                                        type="textarea"
+                                        className="login__input"
+                                        placeholder="Description"
+                                        value={description}
+                                        onChange={(e) => { setDescription(e.target.value) }}
+                                    />
                             <div className="flex flex-col justify-start items-start gap-2">
                                 <div className="opacity-40 text-black text-base font-normal font-['Poppins'] leading-normal"></div>
                                 <select
