@@ -120,6 +120,13 @@ const getCategoryByname = (req, res) => {
         res.json(data)
     })
 }
+
+const getCategoryById=(req,res)=>{
+    const id=req.params.id
+    db.Category.findAll({where:{idcategory:id}}).then((data)=>{
+        res.json(data)
+    })
+}
 const AddProductWithImages = (req, res) => {
     const listURL = req.body.listURL
     const namep = req.body.namep
@@ -142,4 +149,4 @@ const AddProductWithImages = (req, res) => {
             res.json('err') })
 
 }
-module.exports = { createProduct, getProduct, updateProduct, deleteProduct, manageStock, managePrice, createImage, getImages, deleteImage, updateImage, getCategoryByname, AddProductWithImages }
+module.exports = { createProduct, getProduct, updateProduct, deleteProduct, manageStock, managePrice, createImage, getImages, deleteImage, updateImage, getCategoryByname, AddProductWithImages ,getCategoryById}

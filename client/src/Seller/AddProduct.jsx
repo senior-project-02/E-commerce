@@ -87,7 +87,7 @@ const AddProduct = () => {
 
         <div className="SignUp w-full bg-white">
             <NavSeller />
-            <div className="Line3 w-full h-0 left-0 justify-center items-center inline-flex">
+            <div className="Line3 w-full h-0 left-0 justify-center items-center inline-flex"style={{marginTop:"5%" }}>
                 <div className="Line3 w-full h-[0px] origin-top-left rotate-180 opacity-30 border border-black"></div>
             </div>
             <div className="Frame760 justify-around items-center flex">
@@ -208,7 +208,7 @@ const AddProduct = () => {
 
                         </div>
                         <div className="Frame752 flex-col justify-start items-start gap-4 flex">
-                            <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={() => add()} >
+                            <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={() => {add(),window.location.reload()}} >
                                 <div className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">
                                     Create Product
                                 </div>

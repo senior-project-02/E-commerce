@@ -1,0 +1,13 @@
+.select__input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.select__input:focus {
+    border-color: #4a90e2; /* Change to your desired focus color */
+}

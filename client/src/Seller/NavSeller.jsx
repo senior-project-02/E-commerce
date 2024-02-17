@@ -24,7 +24,7 @@ function Nav() {
           </div>
           <div className="justify-start items-start gap-12 flex" style={{ cursor: 'pointer' }} >
             <div className="flex-col justify-center items-center inline-flex">
-              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
+              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={()=>{navigate('/Seller/ProductList')}}>
               Product 
               </div>
               <div className="w-12 h-[0px] opacity-50 justify-center items-center inline-flex">
@@ -43,7 +43,7 @@ function Nav() {
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                About
+                Contact
               </div>
             </div>
           </div>

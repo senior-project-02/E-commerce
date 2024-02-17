@@ -3,6 +3,7 @@ import 'boxicons'
 import { Card, Typography } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 const TABLE_HEAD = ["Product", "Sales", "Rating","Quantity", "Price","",""];
  
 
@@ -10,6 +11,7 @@ const TABLE_HEAD = ["Product", "Sales", "Rating","Quantity", "Price","",""];
 const  ProductList=()=> {
   
     const [products,setProducts]=useState([])
+    const navigate = useNavigate();
     console.log('setData',products)
     useEffect(()=>{
         axios.get(`http://localhost:8000/seller/AllProduct`).then((res)=>{
@@ -25,7 +27,7 @@ const  ProductList=()=> {
     }
   return (
     
-    <Card className="h-full w-full overflow-scroll">
+    <Card className="h-full w-full "style={{ marginTop: "2%", overflowX: "auto" }}>
       <table className="w-full min-w-max table-auto text-left">
         <thead class="text-xs text-white uppercase bg-black dark:bg-black dark:text-white-400">
           <tr>
@@ -37,7 +39,8 @@ const  ProductList=()=> {
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="font-normal leading-none opacity-70"
+                  className="text-white text-2xl font-bold font-['Inter'] leading-normal tracking-wide"
+                  style={{ fontSize: "16px",fontfamily: 'Inter' }}
                 >
                   {head}
                 </Typography>
@@ -46,19 +49,20 @@ const  ProductList=()=> {
           </tr>
         </thead>
         <tbody>
-          {products.map(({ idproduct,namep, quantityp, pricep,ratingp }, index) => {
+          {products.map((oneProduct, index) => {
             const isLast =2;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
             return (
-              <tr key={namep}>
+              <tr key={oneProduct.namep}>
                 <td className={classes}>
                   <Typography
                     variant="small"
                     color="blue-gray"
-                    className="font-normal"
+                    className="text-black text-base font-normal font-['Poppins'] leading-normal"
+                    style={{ fontSize: "16px",fontfamily: 'Poppins' }}
                   >
-                    {namep}
+                    {oneProduct.namep}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -66,6 +70,7 @@ const  ProductList=()=> {
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
+                    style={{ fontSize: "16px" ,fontfamily: 'Poppins'}}
                   >
                     {""}
                   </Typography>
@@ -75,8 +80,9 @@ const  ProductList=()=> {
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
+                    style={{ fontSize: "16px" ,fontfamily: 'Poppins'}}
                   >
-                    {ratingp}
+                    {oneProduct.ratingp}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -84,8 +90,9 @@ const  ProductList=()=> {
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
+                    style={{ fontSize: "16px" ,fontfamily: 'Poppins'}}
                   >
-                    {quantityp}
+                    {oneProduct.quantityp}
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -93,8 +100,9 @@ const  ProductList=()=> {
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
+                    style={{ fontSize: "16px" ,fontfamily: 'Poppins'}}
                   >
-                    {pricep}
+                    {oneProduct.pricep}
                   </Typography>
                 </td>
                 
@@ -105,8 +113,9 @@ const  ProductList=()=> {
                     variant="small"
                     color="blue-gray"
                     className="font-medium"
+                    style={{ fontSize: "16px" ,fontfamily: 'Poppins' }}
                   >
-                    <box-icon type='solid' name='edit-alt'></box-icon>
+                    <box-icon type='solid' name='edit-alt' onClick={()=>{navigate(`/Seller/EditProduct?product=${encodeURIComponent(JSON.stringify(oneProduct))}`)}}></box-icon>
                   </Typography>
                 </td>
                 <td className={classes}>
@@ -116,8 +125,9 @@ const  ProductList=()=> {
                     variant="small"
                     color="blue-gray"
                     className="font-medium"
+                    style={{ fontSize: "16px" ,fontfamily: 'Poppins'}}
                   >
-                    <box-icon name='trash' onClick={() => {deleteProduct(idproduct),window.location.reload()} } ></box-icon>
+                    <box-icon name='trash' onClick={() => {deleteProduct(oneProduct.idproduct),window.location.reload()} } ></box-icon>
                   </Typography>
                 </td>
               </tr>

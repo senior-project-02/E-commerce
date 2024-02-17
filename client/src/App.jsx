@@ -7,6 +7,7 @@ import Detailsproduct from './componant mootaz/Detailsproduct';
 import ProductsList from './Seller/ProductsList'
 import Dashboard from './Seller/SellerInterface';
 import AddProduct from './Seller/AddProduct'
+import EditProduct from './Seller/EditProduct'
 
 
 
@@ -26,6 +27,9 @@ function App() {
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/Seller' element={<Dashboard/>}/>
       <Route path='/Seller/AddProduct' element={<AddProduct/>}/>
+      <Route path='/Seller/EditProduct' element={<EditProduct/>}/>
+      <Route path='/Seller/ProductList' element={<Dashboard/>}/>
+      
       
       </Routes>
       </Router>
