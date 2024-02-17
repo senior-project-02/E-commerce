@@ -2,7 +2,7 @@ import 'boxicons'
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NavSeller from './NavSeller'
@@ -10,24 +10,28 @@ import { BsPlus } from 'react-icons/bs';
 
 
 
+
+
 const EditProduct = () => {
+    const navigate=useNavigate()
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const productParam = queryParams.get('product')
     const product = JSON.parse(decodeURIComponent(productParam))
     const [getCategory, setGetCategory] = useState('')
-    const [name, setName] = useState(product.namep);
+    const [name, setName] = useState(product.namep)
     const [description, setDescription] = useState(product.description);
     const [size, setSize] = useState(product.sizep);
-    const [quantity, setQuantity] = useState(product.quantityp);
-    const [price, setPrice] = useState(product.pricep);
-    const [promotion, setPromotion] = useState(product.promp);
+    const [quantity, setQuantity] = useState(product.quantityp,'P');
+    const [price, setPrice] = useState(product.pricep,'dt');
+    const [promotion, setPromotion] = useState(product.promp,'%');
     const [color, setColor] = useState('Red')
     const [category, setCategory] = useState('Default Category');
     const [AllCategory, setAllCategory] = useState([]);
     const [refresh, setRefresh] = useState(false)
     const [showForm, setShowForm] = useState(false);
     const [newImageUrl, setNewImageUrl] = useState('')
+    const [isUploading, setIsUploading] = useState(false);
 
 
     const [imagesUrl, setImagesUrl] = useState([]);
@@ -75,7 +79,7 @@ const EditProduct = () => {
     }
 
     const editProduct = () => {
-       
+
         axios.get(`http://localhost:8000/seller/getCategoryByName/${category}`).then((res) => {
             console.log(res.data[0].idcategory)
             const id1 = res.data[0].idcategory
@@ -96,7 +100,7 @@ const EditProduct = () => {
                     console.log('done')
                 })
                 .catch((err) => { console.log("err", err) })
-                
+
         })
             .catch((err) => {
                 console.log(err)
@@ -114,19 +118,28 @@ const EditProduct = () => {
     };
 
     const updateImage = (idImage) => {
+        setIsUploading(true);
         const formData = new FormData();
         formData.append('file', newImageUrl);
         formData.append(`upload_preset`, 'z7bg588b')
-        axios.post('https://api.cloudinary.com/v1_1/dhvwa9hnm/image/upload', formData).then((res)=>{
-            console.log('urlImagecloudDinary',res.data.secure_url)
-            axios.put(`http://localhost:8000/seller/UpdateImage/${product.idproduct}/${idImage}`, {
-            imageurl: res.data.secure_url
-        }).then(() => { console.log('done update') 
-        window.location.reload()
-    })
-            .catch((err) => { console.log(err) })
-        })
-        .catch((err)=>{console.log(err)})
+        axios.post('https://api.cloudinary.com/v1_1/dhvwa9hnm/image/upload', formData)
+            .then((res) => {
+                console.log('urlImagecloudDinary', res.data.secure_url)
+                axios.put(`http://localhost:8000/seller/UpdateImage/${product.idproduct}/${idImage}`, {
+                    imageurl: res.data.secure_url
+                }).then(() => {
+                    console.log('done update')
+                    setIsUploading(false);
+                    window.location.reload();
+                }).catch((err) => {
+                    console.log(err);
+                    setIsUploading(false); // Set loading state to false if there's an error
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                setIsUploading(false); // Set loading state to false if there's an error
+            });
         setShowForm(false);
     }
 
@@ -139,7 +152,13 @@ const EditProduct = () => {
     };
 
     return (
+
         <div className="SignUp w-full bg-white">
+            {isUploading && (
+                <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+                </div>
+            )}
             <NavSeller />
             <div className="Line3 w-full h-0 left-0 justify-center items-center inline-flex" style={{ marginTop: "5%" }}>
                 <div className="Line3 w-full h-[0px] origin-top-left rotate-180 opacity-30 border border-black"></div>
@@ -271,49 +290,50 @@ const EditProduct = () => {
                                         padding: '5px', /* Add padding to the icon container */
                                         borderRadius: '5px', /* Add border radius for rounded corners */
                                     }} >
+                                        
                                         <box-icon name='trash' size="26" color="#333" style={{ marginRight: '100px', cursor: 'pointer' }} onClick={() => { deleteImage(imagesId[index]), window.location.reload() }} />
                                         <box-icon type='solid' name='edit-alt' size="26" color="#333" style={{ marginRight: '100px', cursor: 'pointer' }} onClick={() => { { handleEditClick() } }} />
                                         <BsPlus size={30} color="#333" cursor='pointer' />
                                     </div>
-                                   
+
                                     {showForm && (
-    <form onSubmit={(e) => {
-        e.preventDefault();
-        updateImage(imagesId[index]);
-    }} style={{
-        position: 'absolute',
-        bottom: '0',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)', /* Lighter background color */
-        padding: '20px', /* Increased padding */
-        borderRadius: '10px', /* Rounded corners */
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' /* Box shadow for depth */
-    }}>
-        <label htmlFor={`fileInput-${index}`} className="file-input-label">
-        <div style={{
-                backgroundColor: '#000',
-                color: '#fff',
-                padding: '10px 20px',
-                borderRadius: '5px',
-                cursor: 'pointer'
-            }}>Choose File</div>
-            <input
-                type="file"
-                id={`fileInput-${index}`}
-                onChange={(e) => setNewImageUrl(e.target.files[0])}
-                style={{ display: 'none' }} /* Hide the default file input */
-            />
-        </label>
-        <button type="submit" className="upload-button">Upload</button>
-    </form>
-)}
+                                        <form onSubmit={(e) => {
+                                            e.preventDefault();
+                                            updateImage(imagesId[index]);
+                                        }} style={{
+                                            position: 'absolute',
+                                            bottom: '0',
+                                            left: '50%',
+                                            transform: 'translateX(-50%)',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            backgroundColor: 'rgba(255, 255, 255, 0.9)', /* Lighter background color */
+                                            padding: '20px', /* Increased padding */
+                                            borderRadius: '10px', /* Rounded corners */
+                                            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)' /* Box shadow for depth */
+                                        }}>
+                                            <label htmlFor={`fileInput-${index}`} className="file-input-label">
+                                                <div style={{
+                                                    backgroundColor: '#000',
+                                                    color: '#fff',
+                                                    padding: '10px 20px',
+                                                    borderRadius: '5px',
+                                                    cursor: 'pointer'
+                                                }}>Choose File</div>
+                                                <input
+                                                    type="file"
+                                                    id={`fileInput-${index}`}
+                                                    onChange={(e) => setNewImageUrl(e.target.files[0])}
+                                                    style={{ display: 'none' }} /* Hide the default file input */
+                                                />
+                                            </label>
+                                            <button type="submit" className="upload-button" >Upload</button>
+                                        </form>
+                                    )}
                                 </div>
                             ))}
-                            
+
                         </Slider>
                     </div>
                 </div>
