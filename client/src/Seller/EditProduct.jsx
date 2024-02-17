@@ -9,6 +9,7 @@ import NavSeller from './NavSeller'
 import { BsPlus } from 'react-icons/bs';
 
 
+
 const EditProduct = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);

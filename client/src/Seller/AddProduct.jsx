@@ -2,45 +2,47 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import NavSeller from "./NavSeller"
 import { Image } from 'cloudinary-react';
+import { useNavigate } from "react-router-dom";
 
 
 const AddProduct = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [size, setSize] = useState('')
     const [quantity, setQuantity] = useState(0)
     const [price, setPrice] = useState(0)
     const [promotion, setPromotion] = useState(0)
-    const [color,setColor]=useState('')
+    const [color, setColor] = useState('')
     const [category, setCategory] = useState('')
     const [idCategory, setIdCategory] = useState(0)
     const [AllCategory, setAllCategory] = useState([])
     const [images, setImages] = useState([])
     const [listUrlImages, setListUrlImages] = useState([])
     const [verifyChecked, setVerifyChecked] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
     console.log('77', images)
     const handleImageChange = (e) => {
         const selectedImages = Array.from(e.target.files);
         setImages(selectedImages);
     };
     const handleImageUpload = async () => {
+        setIsUploading(true);
         try {
             const formData = new FormData();
             const list = []
-            images.forEach((image, index) => {
+            for (const image of images) {
                 formData.append(`file`, image);
                 formData.append(`upload_preset`, 'z7bg588b')
-                axios.post('https://api.cloudinary.com/v1_1/dhvwa9hnm/image/upload', formData)
-                    .then((res) => {
-                        console.log('8888', res.data.secure_url)
-                        list.push({ imageurl: res.data.secure_url })
-
-                    }).then(() => { setListUrlImages(list) })
-                    .catch((err) => { console.log(err) })
-            });
-        }
-        catch (error) {
+                const res = await axios.post('https://api.cloudinary.com/v1_1/dhvwa9hnm/image/upload', formData);
+                console.log('8888', res.data.secure_url)
+                list.push({ imageurl: res.data.secure_url })
+            }
+            setListUrlImages(list);
+        } catch (error) {
             console.error('hi', error);
+        } finally {
+            setIsUploading(false);
         }
     }
 
@@ -74,7 +76,7 @@ const AddProduct = () => {
                     category_idcategory: id1
 
                 }).then(() => {
-                    console.log(listUrlImages)
+                    console.log('rrr', listUrlImages)
                 })
                 .catch((err) => { console.log("err", err) })
         })
@@ -88,7 +90,7 @@ const AddProduct = () => {
 
         <div className="SignUp w-full bg-white">
             <NavSeller />
-            <div className="Line3 w-full h-0 left-0 justify-center items-center inline-flex"style={{marginTop:"4%" }}>
+            <div className="Line3 w-full h-0 left-0 justify-center items-center inline-flex" style={{ marginTop: "4%" }}>
                 <div className="Line3 w-full h-[0px] origin-top-left rotate-180 opacity-30 border border-black"></div>
             </div>
             <div className="Frame760 justify-around items-center flex">
@@ -145,12 +147,12 @@ const AddProduct = () => {
                                 </div>
                             </div>
                             <textarea
-                                        type="textarea"
-                                        className="login__input"
-                                        placeholder="Description"
-                                        value={description}
-                                        onChange={(e) => { setDescription(e.target.value) }}
-                                    />
+                                type="textarea"
+                                className="login__input"
+                                placeholder="Description"
+                                value={description}
+                                onChange={(e) => { setDescription(e.target.value) }}
+                            />
                             <div className="flex flex-col justify-start items-start gap-2">
                                 <div className="opacity-40 text-black text-base font-normal font-['Poppins'] leading-normal"></div>
                                 <select
@@ -175,7 +177,7 @@ const AddProduct = () => {
                             </div>
 
                             <div className="flex items-center gap-2">
-                               
+
                                 <div className="flex flex-col justify-start items-start gap-2">
                                     <label htmlFor="fileInput" className="cursor-pointer bg-black text-white font-medium py-2 px-4 rounded-md shadow-md transition duration-300 hover:bg-gray-700">
                                         Choose Images
@@ -188,13 +190,17 @@ const AddProduct = () => {
                                         onChange={(e) => { handleImageChange(e) }}
                                     />
                                 </div>
-                              
+
                                 {images.map((image, index) => (
                                     <div key={index}>
                                         <img src={URL.createObjectURL(image)} alt={`Preview ${index}`} style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
                                     </div>
                                 ))}
-                                
+                                {isUploading && (
+                                    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+                                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+                                    </div>
+                                )}
                                 <div className="flex items-center gap-2">
                                     <input
                                         type="checkbox"
@@ -217,7 +223,7 @@ const AddProduct = () => {
 
                         </div>
                         <div className="Frame752 flex-col justify-start items-start gap-4 flex">
-                            <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={() => {add(),window.location.reload()}} >
+                            <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={() => { add(), navigate('/Seller'), window.location.reload() }} >
                                 <div className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">
                                     Create Product
                                 </div>
