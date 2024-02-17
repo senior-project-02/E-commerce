@@ -25,15 +25,17 @@ function App() {
 
       <Route path='/' element={<Home/>}/>
       <Route path='/productDetails' element={<Detailsproduct/>}/>
-      
+
       <Route path='/Login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/Seller' element={<Dashboard/>}/>
       <Route path='/Seller/AddProduct' element={<AddProduct/>}/>
+
       <Route path='/Seller/EditProduct' element={<EditProduct/>}/>
       <Route path='/Seller/ProductList' element={<Dashboard/>}/>
       
       
+
       </Routes>
       </Router>
 
