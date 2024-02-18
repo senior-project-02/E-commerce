@@ -4,7 +4,7 @@ import { IconContext } from "react-icons";
 import { CiStar } from "react-icons/ci";
 // import React, { useState, useEffect } from "react";
 // import axios from "axios";
-
+import ProductCountdown from "./time/ProductCountdown"
 
 function Sales() {
   return (
@@ -26,52 +26,7 @@ function Sales() {
               </div>
             </div>
             {/* timer down */}
-            <div className="w-[302px] h-[50px] relative">
-              <div className="w-[46px] left-0 top-0 absolute flex-col justify-start items-start gap-1 inline-flex">
-                <div className="w-[31px] text-black text-xs font-medium font-['Poppins'] leading-[18px]">
-                  Days
-                </div>
-                <div className="w-[46px] h-7 text-black text-[32px] font-bold font-['Inter'] leading-[30px] tracking-wider">
-                  03
-                </div>
-              </div>
-              <div className="w-[42px] h-[50px] left-[84px] top-0 absolute flex-col justify-start items-start gap-1 inline-flex">
-                <div className="w-[35px] text-black text-xs font-medium font-['Poppins'] leading-[18px]">
-                  Hours
-                </div>
-                <div className="text-black text-[32px] font-bold font-['Inter'] leading-[30px] tracking-wider">
-                  23
-                </div>
-              </div>
-              <div className="w-[49px] h-[50px] left-[164px] top-0 absolute flex-col justify-start items-start gap-1 inline-flex">
-                <div className="w-[49px] text-black text-xs font-medium font-['Poppins'] leading-[18px]">
-                  Minutes
-                </div>
-                <div className="w-[39px] h-7 text-black text-[32px] font-bold font-['Inter'] leading-[30px] tracking-wider">
-                  19
-                </div>
-              </div>
-              <div className="w-[51px] h-[50px] left-[251px] top-0 absolute flex-col justify-start items-start gap-1 inline-flex">
-                <div className="w-[52px] text-black text-xs font-medium font-['Poppins'] leading-[18px]">
-                  Seconds
-                </div>
-                <div className="text-black text-[32px] font-bold font-['Inter'] leading-[30px] tracking-wider">
-                  56
-                </div>
-              </div>
-              <div className="left-[63px] top-[26px] absolute flex-col justify-start items-start gap-2 inline-flex">
-                <div className="w-1 h-1 bg-red-400 rounded-full"></div>
-                <div className="w-1 h-1 bg-red-400 rounded-full"></div>
-              </div>
-              <div className="left-[143px] top-[26px] absolute flex-col justify-start items-start gap-2 inline-flex">
-                <div className="w-1 h-1 bg-red-400 rounded-full"></div>
-                <div className="w-1 h-1 bg-red-400 rounded-full"></div>
-              </div>
-              <div className="left-[230px] top-[26px] absolute flex-col justify-start items-start gap-2 inline-flex">
-                <div className="w-1 h-1 bg-red-400 rounded-full"></div>
-                <div className="w-1 h-1 bg-red-400 rounded-full"></div>
-              </div>
-            </div>
+            <ProductCountdown />
           </div>
           {/* arrow left and right */}
           <div className="justify-start items-start gap-2 flex">
