@@ -5,15 +5,15 @@ import { useParams } from 'react-router-dom';
 function Productname() {
   const [product, setProduct] = useState({});
   const [namecat, setNamecat] = useState("");
-  const { id } = useParams()
+  const { id2 } = useParams()
   useEffect(() => {
     const Data = async () => {
       try {
         const productres = await axios.get(
-          `http://localhost:8000/cart/oneproduct/${id}`
+          `http://localhost:8000/cart/oneproduct/${id2}`
         );
         setProduct(productres.data[0]);
-
+        
         const gat = await axios.get(
           `http://localhost:8000/cart/namegategorie/${productres.data[0].category_idcategory}`
         );

@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Ahmed/Login';
 import SignUp from './Ahmed/SignUp'
 import Home from './Aymen/Home'
-import Detailsproduct from './componant mootaz/Detailsproduct';
+import Productcart from './componant mootaz/Productcart'
+import Productdetails from './componant mootaz/Productdetails'
 import ProductsList from './Seller/ProductsList'
 import Seller from './Seller/SellerInterface';
 import AddProduct from './Seller/AddProduct'
@@ -30,7 +31,6 @@ function App() {
       <Routes>
 
       <Route path='/' element={<Home/>}/>
-      <Route path='/productDetails' element={<Detailsproduct/>}/>
 
       <Route path='/Login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
@@ -43,7 +43,8 @@ function App() {
       <Route path='/Admin/All' element={<AllTable/>}/>
       <Route path='/Admin/EditRole' element={<EdditRole/>}/>
       <Route path='/Admin/CategoryList' element={<CategoryList/>}/>
-
+      <Route path='/product/:id1/:id2' element={<Productdetails/>}/>
+      <Route path='/cart/:id' element={<Productcart/>}/>
 
 
 

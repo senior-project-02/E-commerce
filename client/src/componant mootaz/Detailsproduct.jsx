@@ -18,7 +18,7 @@ const Detailsproduct = () => {
   const addwishlist = async () => {
     const ob={
       user_iduser:id1,
-      product_idproduct:1
+      product_idproduct:id2
     }
     if (wish === false) {
      await axios.post(`http://localhost:8000/cart/addwhis`,ob).then(() => {
