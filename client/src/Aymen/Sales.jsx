@@ -5,10 +5,13 @@ import { CiStar } from "react-icons/ci";
 import { FiHeart } from "react-icons/fi";
 // import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams,useNavigate } from 'react-router-dom';
+
 import ProductCountdown from "./time/ProductCountdown";
 import React, { useEffect, useState } from "react";
 
 function Sales() {
+  const navigate = useNavigate();
   const [product, setProduct] = useState([]);
   const [images, setImages] = useState([]);
   const [wishList, setWishList] = useState([]);
@@ -37,6 +40,35 @@ function Sales() {
     };
     Data();
   }, []);
+  const add = async (x) => {
+    try {
+      const cartt = await axios.get(`http://localhost:8000/cart/getcart/1`);
+      if (cartt.data.length > 0) {
+        const objj = {
+          quantitycp: 1,
+          cart_idcart: cartt.data[0].idcart,
+          product_idproduct:x,
+        };
+        await axios.post("http://localhost:8000/cart/carthasp", objj);
+      } else {
+        const obj = {
+          status: "encours",
+          user_iduser: 1,
+        };
+        const xt = await axios.post("http://localhost:8000/cart/createcart", obj);
+        console.log(xt.data);
+        const ob = {
+          quantitycp: 1,
+          cart_idcart: xt.data.idcart,
+          product_idproduct: x,
+        };
+        await axios.post("http://localhost:8000/cart/carthasp", ob);
+      }
+      navigate(`/cart/1`)
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   const addwishlist = async (k,l) => {
     const ob = {
@@ -115,7 +147,9 @@ function Sales() {
                     </div>
                   </div>
                   <div className="w-[270px] h-[41px] left-0 top-[209px] absolute bg-black rounded-bl rounded-br"></div>
-                  <div className="left-[87px] top-[217px] absolute text-white text-base font-medium font-['Poppins'] leading-normal">
+                  <div className="left-[87px] top-[217px] absolute text-white text-base font-medium font-['Poppins'] leading-normal"onClick={()=>{
+                    add(e.idproduct)
+                  }}>
                     Add To Cart
                   </div>
                   <div className="left-[224px] top-[12px] absolute flex-col justify-start items-start gap-2 inline-flex">
@@ -145,6 +179,7 @@ function Sales() {
                     <img
                       className="w-[191px] h-[101px]"
                       src={images[i]}
+                      onClick={() => navigate(`/product/1/${e.idproduct}`)}
                     />
                   </div>
                 </div>

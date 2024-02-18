@@ -58,7 +58,7 @@ const Detailsproduct = () => {
       console.error(err);
     }
   };
-  ;
+  
 
   return (
     <div className="w-1/3 h-[450px] ml-4">
@@ -202,7 +202,7 @@ const Detailsproduct = () => {
               <button
                 onClick={() => {
                   add();
-                  navigate(`/${id1}`)
+                  navigate(`/cart/${id1}`)
                 }}
               >
                 Buy Now
