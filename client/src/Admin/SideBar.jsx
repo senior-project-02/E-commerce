@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 
 import {
@@ -25,7 +26,7 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const SideBar = () => {
   const [open, setOpen] = React.useState(0);
- 
+ const navigate=useNavigate
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
@@ -73,9 +74,9 @@ const SideBar = () => {
                  Seller
               </ListItem>
               <ListItem>
-                <ListItemPrefix>
+                <ListItemPrefix onClick={()=>{navigate('/Admin/CategoryList')}}>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
+                </ListItemPrefix >
                 Category
               </ListItem>
             </List>
