@@ -109,7 +109,9 @@ const User = sequelize.define('user', {
   
   
   const CartHasProduct = sequelize.define('cart_has_product', {
-   
+    quantitycp: {
+      type: DataTypes.INTEGER,
+    }
   });
   
 

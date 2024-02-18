@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 const Productimage = () => {
   const [images, setImages] = useState([]);
-
+  const { id2 } = useParams()
+  
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/cart/image/8`)
+      .get(`http://localhost:8000/cart/image/${id2}`)
       .then((res) => {
         setImages(res.data);
       })

@@ -1,76 +1,110 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Aymen/Nav.jsx";
 import Footer from "../Aymen/Footer.jsx";
-import  axios from 'axios';
+import { useParams,useNavigate } from 'react-router-dom';
+import axios from "axios";
 const Productcart = () => {
   const [products, setProducts] = useState([]);
-  useEffect(()=>{
+  const [pq, setPq] = useState([]);
+  const [image, setImage] = useState([]);
+  const { id } = useParams()
+  const navigate = useNavigate();
+  
+  useEffect(() => {
     const Data = async () => {
-    try{
-      const cartt=await axios.get(`http://localhost:8000/cart/getcart/1`)
-      const carthasproduct=await axios.get(`http://localhost:8000/cart/carthasp/${cartt.data[0].idcart}`)
-      // /oneproduct/:id
-      const array=[]
-      for (let i of carthasproduct.data){
-        let product= await axios.get(`http://localhost:8000/cart/oneproduct/${i.idproduct}`).then((res)=>{
-          array.push(res)
-        }).catch((err)=>console.log(err))
-    }
-    setProducts(array)
-  }
-    catch (err) {console.log(err)}
-  }
-  Data()
-  },[])
-  const upd= async()=>{
-    try{
-    const carttt=await axios.get(`http://localhost:8000/cart/getcart/1`)
-    const x=carttt.data[0]
-    x.status="end"
+      try {
+        const cartt = await axios.get(`http://localhost:8000/cart/getcart/${id}`);
 
-    const u= await axios.put(`http://localhost:8000/cart/updatecart/${carttt.data[0].idcart}`,x).then((res)=>{
-      console.log("updated",res.data)
+        const carthasproduct = await axios.get(
+          `http://localhost:8000/cart/carthasp/${cartt.data[0].idcart}}`
+        );
+        // /oneproduct/:id
+        const array = [];
+        const t = [];
+        const img = [];
+
+        for (let i of carthasproduct.data) {
+          let product = await axios
+            .get(`http://localhost:8000/cart/oneproduct/${i.product_idproduct}`)
+            .then((res) => {
+              array.push(res.data[0]);
+              t.push(i);
+            })
+            .catch((err) => console.log(err));
+          let productimg = await axios
+            .get(`http://localhost:8000/cart/image/${i.product_idproduct}`)
+            .then((reslt) => {
+              img.push(reslt.data[0]);
+            })
+            .catch((err) => console.log(err));
+        }
+        setProducts(array);
+        setPq(t);
+        setImage(img);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    Data();
+  }, []);
+  const upd = async () => {
+    try {
+      const carttt = await axios.get(`http://localhost:8000/cart/getcart/1`);
+      const x = carttt.data[0];
+      x.status = "end";
+
+      const u = await axios
+        .put(
+          `http://localhost:8000/cart/updatecart/${carttt.data[0].idcart}`,
+          x
+        )
+        .then((res) => {
+          console.log("updated", res.data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    const obj = {
+      status: "encours",
+      user_iduser: "1",
+    };
+    axios
+      .post("http://localhost:8000/cart/createcart", obj)
+      .then(() => {
+        console.log("create card");
       })
-     
-    } catch(err){
-      console.log(err)
-    }
-    const obj={
-      status:"encours",
-      user_iduser:"1"
-    }
-    axios.post('http://localhost:8000/cart/createcart',obj)
-    .then(()=>{
-    console.log("create card")
-    }).catch((err)=>console.log(err,'gvhbhb'))
-  }
+      .catch((err) => console.log(err, "gvhbhb"));
+  };
   const inc = (Id) => {
-    setProducts(() =>
-    products.map((product) =>
-        product.idproduct === Id
-          ? { ...product, quantity: product.quantity + 1 }
+    setPq((x) => {
+      const updatedPq = x.map((product) =>
+        product.product_idproduct === Id
+          ? { ...product, quantitycp: product.quantitycp + 1 }
           : product
-      )
-    );
+      );
+      return updatedPq;
+    });
   };
 
   const dec = (Id) => {
-    setProducts(() =>
-    products.map((product) =>
-        product.idproduct === Id && product.quantity > 1
-          ? { ...product, quantity: product.quantity - 1 }
+    setPq((x) => {
+      const updatedPq = x.map((product) =>
+        product.product_idproduct === Id && product.quantitycp > 1
+          ? { ...product, quantitycp: product.quantitycp - 1 }
           : product
-      )
-    );
+      );
+      return updatedPq;
+    });
   };
 
-  const calculateSubtotal = (product) => {
-    return product.price * product.quantity;
+  const calculateSubtotal = (product, qc) => {
+    return product.pricep * qc;
   };
 
   const calculateTotal = () => {
     return products.reduce(
-      (total, product) => total + calculateSubtotal(product),
+      (total, product, i) =>
+        total + calculateSubtotal(product, pq[i].quantitycp),
       0
     );
   };
@@ -93,42 +127,41 @@ const Productcart = () => {
               <div className="text-black font-medium w-16 h-12 ml-52">
                 Price
               </div>
-              <div className="text-black font-medium w-16 h-12">Quantity</div>
+              <div className="text-black font-medium w-16 h-12">quantity</div>
               <div className="text-black font-medium w-16 h-12">Subtotal</div>
             </div>
-            {products.map((product) => (
-              <div
-                className="flex justify-between items-center mt-8"
-                key={product.id}
-              >
+            {products.map((product, k) => (
+              <div className="flex justify-between items-center mt-8" key={k}>
                 <div className="flex items-center gap-4">
-                  <img className="w-40 h-20" src="" alt="" />
-                  <div className="w-24 h-12">{product.name}</div>
+                  <img className="w-40 h-40" src={image[k].imageurl} alt="" />
+                  <div className="w-24 h-12">{product.namep}</div>
                 </div>
 
-                <div className="w-16 h-12">${product.price}</div>
+                <div className="w-16 h-12">${product.pricep}</div>
 
                 <div className="flex items-center w-14 h-12">
                   <button
                     className="border border-black rounded px-2"
-                    onClick={() => dec(product.id)}
+                    onClick={() => dec(product.idproduct)}
                   >
                     -
                   </button>
-                  <span className="mx-2 w-20">{product.quantity}</span>
+                  <span className="mx-2 w-20">{pq[k].quantitycp}</span>
                   <button
                     className="border border-black rounded px-2"
-                    onClick={() => inc(product.id)}
+                    onClick={() => inc(product.idproduct)}
                   >
                     +
                   </button>
                 </div>
-                <div>${calculateSubtotal(product)}</div>
+                <div>${calculateSubtotal(product, pq[k].quantitycp)}</div>
               </div>
             ))}
           </div>
           <div className="flex justify-between items-center w-full mt-6">
-            <button className="border border-black rounded px-4 py-2">
+            <button className="border border-black rounded px-4 py-2" onClick={()=>{
+              navigate(`/${id}`)
+            }}>
               Return To Shop
             </button>
             <button className="border border-black rounded px-4 py-2">
@@ -162,9 +195,13 @@ const Productcart = () => {
                 <div>Total:</div>
                 <div>${calculateTotal()}</div>
               </div>
-              <button className="bg-red-500 text-white rounded px-4 py-2 mt-6" onClick={()=>{
-                upd()
-              }}>
+              <button
+                className="bg-red-500 text-white rounded px-4 py-2 mt-6"
+                onClick={() => {
+                  upd();
+                  navigate(`/${id}`)
+                }}
+              >
                 Proceed to Checkout
               </button>
             </div>
