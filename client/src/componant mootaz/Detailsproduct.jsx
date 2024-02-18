@@ -1,36 +1,84 @@
 import React, { useEffect, useState } from "react";
 import "boxicons";
 import axios from "axios";
+import { useParams,useNavigate } from 'react-router-dom';
+import { FiHeart } from "react-icons/fi";
 const Detailsproduct = () => {
   const [count, setCount] = useState(1);
   const [size, setSize] = useState("M");
   const [product, setProduct] = useState({});
-  // const {idproduct}=useParams()
+  const [wish, setWish] = useState(false);
+  const { id1, id2 } = useParams()
+  const navigate = useNavigate();
   useEffect(() => {
-    axios.get(`http://localhost:8000/cart/oneproduct/1`).then((res) => {
+    axios.get(`http://localhost:8000/cart/oneproduct/${id2}`).then((res) => {
       setProduct(res.data[0]);
     });
   }, []);
+  const addwishlist = async () => {
+    const ob={
+      user_iduser:id1,
+      product_idproduct:1
+    }
+    if (wish === false) {
+     await axios.post(`http://localhost:8000/cart/addwhis`,ob).then(() => {
+    }).catch((err)=>console.log(err))
+    } 
+    else {
+    await axios.delete(`http://localhost:8000/cart/delwhis`,{ data: ob }).then(() => {
+    }).catch((err)=>console.log(err))
+    }
+    setWish((prev) => !prev);
+  };
+  const add = async () => {
+    try {
+      const cartt = await axios.get(`http://localhost:8000/cart/getcart/${id1}`);
+      if (cartt.data.length > 0) {
+        const objj = {
+          quantitycp: count,
+          cart_idcart: cartt.data[0].idcart,
+          product_idproduct:id2,
+        };
+        await axios.post("http://localhost:8000/cart/carthasp", objj);
+      } else {
+        const obj = {
+          status: "encours",
+          user_iduser: id1,
+        };
+        const xt = await axios.post("http://localhost:8000/cart/createcart", obj);
+        console.log(xt.data);
+        const ob = {
+          quantitycp: count,
+          cart_idcart: xt.data.idcart,
+          product_idproduct: id2,
+        };
+        await axios.post("http://localhost:8000/cart/carthasp", ob);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  ;
+
   return (
     <div className="w-1/3 h-[450px] ml-4">
       <div className="flex-col">
         <div className=" flex-col text-black text-xl font-semibold font-Inter'] leading-normal-wide">
-          <div>Havic HV G-92 Gamepad</div> <div className="mt-2">$192.00</div>
+          <div>{product.namep}</div>{" "}
+          <div className="mt-2">${product.pricep}.00</div>
         </div>
         <div className="w-full h-[1px] bg-gray-300 mt-4"></div>
         <div className="flex flex-col mt-4">
           <div className="flex justify-between">
             <div className="text-black text-lg font-normal font-['Poppins'] leading-[21px]">
-              (150 Reviews)
+              ({product.ratingp} Reviews)
             </div>
             <div className="text-green-500 text-sm font-normal font-['Poppins'] leading-[21px]">
               In Stock
             </div>
           </div>
           <div className="text-black  text-xl font-normal font-['Poppins'] leading-[21px] mt-2">
-            PlayStation 5 Controller Skin High quality vinyl with air channel
-            adhesive for easy bubble free install &amp; mess free removal
-            Pressure sensitive.
+            {product.descriptionp}
           </div>
         </div>
         <div className="w-full h-[1px] bg-gray-300 mt-4"></div>
@@ -43,9 +91,9 @@ const Detailsproduct = () => {
               className={`w-8 h-8 flex justify-center items-center  border border-black border-opacity-50 rounded mr-2 ${
                 size === "XS" ? "bg-red-500" : ""
               }`}
-            onClick={()=>{
-              setSize('XS')
-            }}
+              onClick={() => {
+                setSize("XS");
+              }}
             >
               <div
                 className={`w-3 h-5 mr-1 text-sm font-medium font-['Poppins']  ${
@@ -60,8 +108,8 @@ const Detailsproduct = () => {
               className={`w-8 h-8 flex justify-center items-center  border border-black border-opacity-50 rounded mr-2 ${
                 size === "XL" ? "bg-red-500" : ""
               }`}
-              onClick={()=>{
-                setSize('XL')
+              onClick={() => {
+                setSize("XL");
               }}
             >
               <div
@@ -77,8 +125,8 @@ const Detailsproduct = () => {
               className={`w-8 h-8 flex justify-center items-center  border border-black border-opacity-50 rounded mr-2 ${
                 size === "S" ? "bg-red-500" : ""
               }`}
-              onClick={()=>{
-                setSize('S')
+              onClick={() => {
+                setSize("S");
               }}
             >
               <div
@@ -94,8 +142,8 @@ const Detailsproduct = () => {
               className={`w-8 h-8 flex justify-center items-center  border border-black border-opacity-50 rounded mr-2 ${
                 size === "M" ? "bg-red-500" : ""
               }`}
-              onClick={()=>{
-                setSize('M')
+              onClick={() => {
+                setSize("M");
               }}
             >
               <div
@@ -110,8 +158,8 @@ const Detailsproduct = () => {
               className={`w-8 h-8 flex justify-center items-center  border border-black border-opacity-50 rounded mr-2 ${
                 size === "L" ? "bg-red-500" : ""
               }`}
-              onClick={()=>{
-                setSize('L')
+              onClick={() => {
+                setSize("L");
               }}
             >
               <div
@@ -151,9 +199,20 @@ const Detailsproduct = () => {
           </div>
           <div className="w-[165px] h-11 ml-5 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex">
             <div className="text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">
-              <button>Buy Now</button>
+              <button
+                onClick={() => {
+                  add();
+                  navigate(`/${id1}`)
+                }}
+              >
+                Buy Now
+              </button>
+              
             </div>
           </div>
+          <button onClick={addwishlist}>
+              <FiHeart className={wish ? "text-red-500 w-28  h-8" : "text-black w-28  h-8"} />
+            </button>
         </div>
       </div>
       <div className="w-full rounded border flex-col border-black border-opacity-50 mt-8">

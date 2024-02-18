@@ -11,4 +11,6 @@ router.get('/getAllImages/:id',seller.getImages)
 router.delete('/deleteImage/:idProduct/:idImage',seller.deleteImage)
 router.put('/updateImage/:idProduct/:idImage',seller.updateImage)
 router.get('/getCategoryByName/:name',seller.getCategoryByname)
+router.post('/AddProductWithImages',seller.AddProductWithImages)
+router.get('/getCategoryById/:id',seller.getCategoryById)
 module.exports = router;
