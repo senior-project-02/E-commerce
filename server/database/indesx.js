@@ -3,7 +3,7 @@ const mysql = require('mysql2')
 
 
 
-const sequelize = new Sequelize('e-commerce', 'root', 'mars', {
+const sequelize = new Sequelize('e-commerce', 'root', 'asd12345hope@@', {
 
     host:'localhost',
     dialect:'mysql'

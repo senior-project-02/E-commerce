@@ -36,8 +36,27 @@ const deleteCategory=(req,res)=>{
         res.json('category deleted')
     })
     .catch((err)=>{
-        res.satatus(500).json(err)
+        res.json(err)
     })
 }
 
-module.exports={createCategory,getAllCategory,updateCategory,deleteCategory}
+const EditRole=(req,res)=>{
+    const id=req.params.id
+    const data=req.body
+    db.User.update(data,{where:{iduser:id}}).then((data)=>{
+        res.json(data)
+    }).catch((err)=>{
+        res.json(err)
+    })
+}
+const getAllProducthaveCategory=(req,res)=>{
+    const id=req.params.id
+    db.Product.findAll({where:{category_idcategory:id} }).then((data)=>{
+        res.json(data)
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+}
+
+module.exports={createCategory,getAllCategory,updateCategory,deleteCategory,EditRole,getAllProducthaveCategory}
