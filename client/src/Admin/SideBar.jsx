@@ -1,5 +1,5 @@
 import React from "react";
-import ProductList from "./ProductsList";
+
 import {
   Card,
   Typography,
@@ -30,7 +30,8 @@ const SideBar = () => {
   };
  
   return (
-    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <div className="p-0 m-0">
+        <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-0 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Typography variant="h5" color="blue-gray">
           Sidebar
@@ -62,19 +63,19 @@ const SideBar = () => {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                 Products
+                 Users
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                 Categorys
+                 Seller
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Add Product
+                Category
               </ListItem>
             </List>
           </AccordionBody>
@@ -104,13 +105,13 @@ const SideBar = () => {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Orders
+                User Interface
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Products
+                Seller Interface
               </ListItem>
             </List>
           </AccordionBody>
@@ -136,13 +137,9 @@ const SideBar = () => {
         </ListItem>
       </List>
     </Card>
+    </div>
+    
   );
 };
 
 export default SideBar;
-
-
-
-
-
-

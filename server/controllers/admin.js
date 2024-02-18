@@ -40,4 +40,14 @@ const deleteCategory=(req,res)=>{
     })
 }
 
-module.exports={createCategory,getAllCategory,updateCategory,deleteCategory}
+const EditRole=(req,res)=>{
+    const id=req.params.id
+    const data=req.body
+    db.User.update(data,{where:{iduser:id}}).then((data)=>{
+        res.json(data)
+    }).catch((err)=>{
+        res.json(err)
+    })
+}
+
+module.exports={createCategory,getAllCategory,updateCategory,deleteCategory,EditRole}

@@ -119,7 +119,7 @@ const AddProduct = () => {
                                 </div>
                                 <div className="flex flex-col justify-start items-start gap-2">
                                     <input
-                                        type="password"
+                                        type="text"
                                         className="login__input"
                                         placeholder="Size"
                                         onChange={(e) => { setSize(e.target.value) }}
