@@ -10,18 +10,29 @@ const [password,setPassword]=useState("")
 const [role,setRole]=useState("") 
 
 
-    const sign=()=>{
-        axios.post("http://localhost:8000/auth/signup",{
-            name:name,
-            email:email,
-            password:password,
-            role:role 
-        }).then((res)=>{
-           console.log(res,"seccsesfuly");
-        }).catch((err)=>{
-            console.log(err);
-        })
+const sign = () => {
+  axios.post(
+    "http://localhost:8000/auth/signup",
+    {
+      name: name,
+      email: email,
+      password: password,
+      role: role,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     }
+  )
+    .then((res) => {
+      console.log(res, "successfully");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
   return (
    
 

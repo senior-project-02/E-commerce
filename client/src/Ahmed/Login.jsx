@@ -17,11 +17,19 @@ const [user, setUser] = useState(null)
 console.log(user,"the token decoded");
 
 Cookies.set('token', token, { expires: 7, secure: true });
+const header={
+  headers: {
+        Authorization : `Bearer ${token}`
+    }
+   
+}
+console.log(header,"this is header");
 const sajl=()=>{  
         axios.post("http://localhost:8000/auth/login",{
            email: email,
            password: password
-       }).then((response)=>{
+       },header
+        ).then((response)=>{
            setToken(response.data.token)
            const tkn = jwtDecode(response.data.token)
            setUser(tkn)
@@ -64,7 +72,6 @@ useEffect(() => {
         placeholder="email"
         onChange={(e)=>{setEmail(e.target.value)}}
     />
-    
     </div>
     <div className="flex-col justify-start items-start gap-2 flex">
       <div className="opacity-40 text-black text-base font-normal font-['Poppins'] leading-normal"></div>
@@ -79,7 +86,7 @@ useEffect(() => {
         <div className="Frame752 flex-col justify-start items-start gap-4 flex">
         <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={()=> sajl()} >
   <div className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">
-    Create Account
+    Login
   </div>
 </button> 
         </div>
