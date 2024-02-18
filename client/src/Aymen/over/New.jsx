@@ -1,6 +1,6 @@
 function New() {
   return (
-    <div style={{ display: "flex" , marginTop:"10%" }} className="justify-center">
+    <div style={{ display: "flex" , marginTop:"5%" }} className="justify-center">
       <div className=" flex-col justify-center items-start gap-[60px] inline-flex">
         <div className="flex-col justify-start items-start gap-5 flex">
           <div className="justify-start items-center gap-4 inline-flex">
