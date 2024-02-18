@@ -44,6 +44,10 @@ const AllTable = () => {
 
 
   const [users, setUsers] = useState([]);
+  const [buyer, setBuyer] = useState([]);
+  const [seller, setSller] = useState([]);
+ 
+
   
 
   const navigate = useNavigate()

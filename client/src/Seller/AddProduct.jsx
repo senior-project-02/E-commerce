@@ -73,6 +73,7 @@ const AddProduct = () => {
                     quantityp: quantity,
                     pricep: price,
                     promop: promotion,
+                    
                     category_idcategory: id1
 
                 }).then(() => {
