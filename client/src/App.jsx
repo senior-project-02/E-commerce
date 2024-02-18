@@ -1,5 +1,4 @@
 
-
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Ahmed/Login';
@@ -24,8 +23,8 @@ function App() {
   return (
     <div>
 
-
-
+      
+      
 <Router>
       <Routes>
 
@@ -39,17 +38,17 @@ function App() {
 
       <Route path='/Seller/EditProduct' element={<EditProduct/>}/>
       <Route path='/Seller/ProductList' element={<Seller/>}/>
-
+      
       <Route path='/Admin/All' element={<AllTable/>}/>
       <Route path='/Admin/EditRole' element={<EdditRole/>}/>
       <Route path='/Admin/CategoryList' element={<CategoryList/>}/>
 
+     
 
 
 
-
-
-
+      
+      
 
       </Routes>
       </Router>
@@ -60,4 +59,3 @@ function App() {
 }
 
 export default App
-
