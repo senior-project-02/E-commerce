@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import NavSeller from "./NavSeller"
+
 import { Image } from 'cloudinary-react';
 import { useNavigate } from "react-router-dom";
+
 
 
 const AddProduct = () => {
