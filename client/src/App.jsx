@@ -15,9 +15,9 @@ import CategoryList from './Admin/Category';
 import Login from './Ahmed/Login';
 import SignUp from './Ahmed/SignUp'
 
-import Account from './Ahmed/Account';
-import Contact from './Ahmed/Contact';
-import About from './Ahmed/About';
+// import Account from './Ahmed/Account';
+// import Contact from './Ahmed/Contact';
+// import About from './Ahmed/About';
 import Detailsproduct from './componant mootaz/Detailsproduct';
 import Productcart from './componant mootaz/Productcart'
 import AllUser from './Admin/AllUser';
@@ -42,7 +42,7 @@ function App() {
 
       <Route path='/Login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
-      <Route path='/Account' element={<Account/>}/>
+      {/* <Route path='/Account' element={<Account/>}/> */}
 
 
       <Route path='/Seller' element={<Seller/>}/>

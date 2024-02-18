@@ -59,8 +59,8 @@ function Sales() {
     <div
       style={{ display: "flex", marginTop: "10%", justifyContent: "center" }}
     >
-      <div className=" flex-col justify-center items-start gap-10 inline-flex">
-        <div className="justify-start items-end gap-[470px] inline-flex">
+      <div className=" flex-col justify-center items-center  gap-10 inline-flex">
+        <div className="justify-center items-end gap-[470px] inline-flex">
           <div className="justify-start items-end gap-[87px] flex">
             <div className="h-[103px] flex-col justify-start items-start gap-6 inline-flex">
               <div className="justify-start items-center gap-4 inline-flex">
@@ -90,7 +90,7 @@ function Sales() {
             </div>
           </div>
         </div>
-        <div className="w-[1308px] justify-start items-start gap-[30px] inline-flex">
+        <div className="w-[1308px] justify-center items-start gap-[30px] inline-flex">
           {/* the card of item */}
           {product.map((e, i) => {
             // eslint-disable-next-line react/jsx-key

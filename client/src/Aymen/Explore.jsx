@@ -14,9 +14,9 @@ function Explore(){
     const Data = async () => {
       try {
         const pr = await axios.get("http://localhost:8000/user/allprodect");
-        setProduct(pr.data.slice(0, 4));
+        setProduct(pr.data.slice(0, 8));
         const array = [];
-        for (const i of pr.data.slice(0, 4)) {
+        for (const i of pr.data.slice(0, 8)) {
           await axios
             .get(`http://localhost:8000/cart/image/${i.idproduct}`)
             .then((res) => {
@@ -37,7 +37,7 @@ function Explore(){
 
     <div style={{ display: "flex", marginTop: "5%", justifyContent: "center" }}>
 
-      <div className=" flex-col justify-start items-start gap-[60px] inline-flex">
+      <div className=" flex-col justify-center items-center gap-[60px] inline-flex">
         <div className="justify-start items-end gap-[611px] inline-flex">
           <div className="flex-col justify-start items-start gap-5 inline-flex">
             <div className="justify-start items-center gap-4 inline-flex">
@@ -52,11 +52,12 @@ function Explore(){
             <div className="text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">View All</div>
           </div>
         </div>
-        <div style ={{display:"flex" ,gap:"15px"}}>
+        <div style ={{ width:"80%",display:"flex" , justifyContent:"center" ,gap:"20px" ,flexWrap:"wrap", }}>
         {product.map((e, i )=>{
           return(
+          
         // eslint-disable-next-line react/jsx-key
-        <div  className="justify-start items-start gap-[30px] inline-flex">
+        <div  className="justify-center items-center gap-[30px] inline-flex">
           <div className="flex-col justify-start items-start gap-4 inline-flex">
             <div className="w-[270px] h-[250px] relative bg-neutral-100 rounded">
               <div className="px-3 py-1 left-[12px] top-[12px] absolute bg-red-500 rounded justify-center items-center gap-2.5 inline-flex">

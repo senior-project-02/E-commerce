@@ -59,7 +59,7 @@ function Nav() {
             </div>
             <div className="w-[61px] h-6 justify-center items-center flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href=''>Sign Up</a>
+                <a href='/signup'>Sign Up</a>
               </div>
             </div>
           </div>
