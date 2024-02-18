@@ -65,15 +65,16 @@ const Cart = async (req, res) => {
   }
 };
 const Createcart = async (req, res) => {
-  const data = req.body;
-  const d = await db.Cart.create(data)
+  const dataa = req.body;
+  await db.Cart.create(dataa)
     .then((result) => {
-      res.send(result.data);
+      res.send(result); // Sending the result directly
     })
     .catch((err) => {
-    console.log(err);
+      console.log(err);
     });
 };
+
 const Updatecart = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
@@ -93,8 +94,8 @@ const Updatecart = async (req, res) => {
 const Insertcarthasproduct = async (req, res) => {
   const data = req.body;
   const d = await db.CartHasProduct.create(data)
-    .then(() => {
-      res.json(d);
+    .then((result) => {
+      res.json(result.data);
     })
     .catch((err) => {
       console.log(err);
@@ -102,7 +103,6 @@ const Insertcarthasproduct = async (req, res) => {
 };
 const Productfromcard = async (req, res) => {
   const id = req.params.id;
-
   try {
     const result = await db.CartHasProduct.findAll({
       where: {
@@ -140,6 +140,31 @@ const Namecategorie = async (req, res) => {
     console.log(err);
   }
 }
+const addwhis = async (req, res) => {
+  const data = req.body;
+  const d = await db.Whislist.create(data)
+    .then((result) => {
+      res.json(result.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+const delwhis = async (req, res) => {
+  const data = req.body;
+  const d = await await db.Whislist.destroy({
+    where: {
+      user_iduser: data.user_iduser,
+      product_idproduct: data.product_idproduct
+    }
+  })
+    .then((result) => {
+      res.json(result.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 module.exports = {
   Oneproduct,
@@ -152,5 +177,7 @@ module.exports = {
   Productfromcard,
   Insertcarthasproduct,
   Removeproductfromcart,
-  Namecategorie
+  Namecategorie,
+  addwhis,
+  delwhis
 };
