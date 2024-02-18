@@ -1,6 +1,9 @@
+import 'boxicons'
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SideBar from "./SideBar";
+
+
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -35,16 +38,18 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = ["User", "Email", "Status", "Created", "",""];
+const TABLE_HEAD = ["User", "Email", "Status", "Created", "", ""];
 
 const AllTable = () => {
 
+
   const [users, setUsers] = useState([]);
   
-  const navigate=useNavigate()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/auth//getAllUsers`)
+    axios.get(`http://localhost:8000/auth/getAllUsers`)
       .then((res) => {
         setUsers(res.data);
       })
@@ -52,6 +57,20 @@ const AllTable = () => {
         console.log('Error fetching user data:', err);
       });
   }, []);
+
+  const blockUser = (id, name) => {
+    const confirmed = window.confirm(`Are you sure you want to block ${name}?`);
+    if (confirmed) {
+      axios.delete(`http://localhost:8000/auth/delteuser/${id}`)
+        .then((res) => {
+          toast.success(`User ${name} blocked successfully`);
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log("Error:", err);
+        });
+    }
+  };
 
   return (
     <div className="flex" p-0 m-0>
@@ -126,7 +145,7 @@ const AllTable = () => {
                     <tr key={user.name}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
-                          <Avatar src={user.image} alt={user.name} size="s" className="rounded-full"  />
+                          <Avatar src={user.image} alt={user.name} size="s" className="rounded-full" />
                           <div className="flex flex-col">
                             <Typography
                               variant="small"
@@ -154,7 +173,7 @@ const AllTable = () => {
                           <Chip
                             variant="ghost"
                             size="sm"
-                            value={user.role }
+                            value={user.role}
                             color={user.role === "seller" ? "red" : "green"}
                           />
                         </div>
@@ -171,14 +190,15 @@ const AllTable = () => {
                       <td className={classes}>
                         <Tooltip content="Edit User">
                           <IconButton variant="text">
-                            <PencilIcon className="h-4 w-4" onClick={()=>{navigate(`/Admin/EditRole?id=${user.iduser}`)}} />
+                            <PencilIcon className="h-4 w-4" onClick={() => { navigate(`/Admin/EditRole?id=${user.iduser}`) }} />
                           </IconButton>
                         </Tooltip>
                       </td>
                       <td className={classes}>
-                        <Tooltip content="Edit User">
+                        <Tooltip content="Block User">
                           <IconButton variant="text">
-                            <TrashIcon className="h-4 w-4" onClick={()=>{}}/>
+                            <box-icon name='block' onClick={() => { blockUser(user.iduser,user.name), window.location.reload() }}></box-icon>
+                            
                           </IconButton>
                         </Tooltip>
                       </td>
@@ -201,7 +221,9 @@ const AllTable = () => {
               </Button>
             </div>
           </CardFooter>
+          
         </Card>
+       
       </div>
     </div>
   );

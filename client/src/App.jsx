@@ -39,6 +39,8 @@ function App() {
       
       <Route path='/Admin/All' element={<AllTable/>}/>
       <Route path='/Admin/EditRole' element={<EdditRole/>}/>
+     
+
 
 
       
