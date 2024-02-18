@@ -11,6 +11,7 @@ import EditProduct from './Seller/EditProduct'
 import SideBar from './Admin/SideBar';
 import AllTable from './Admin/AllTable';
 import EdditRole from './Admin/EditRole';
+import CategoryList from './Admin/Category';
 
 
 
@@ -39,6 +40,8 @@ function App() {
       
       <Route path='/Admin/All' element={<AllTable/>}/>
       <Route path='/Admin/EditRole' element={<EdditRole/>}/>
+      <Route path='/Admin/CategoryList' element={<CategoryList/>}/>
+
      
 
 
