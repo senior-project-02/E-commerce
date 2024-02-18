@@ -8,6 +8,8 @@ router.get('/getcart/:id',controller.Cart)
 router.post('/createcart',controller.Createcart)
 router.put('/updatecart/:id',controller.Updatecart)
 router.post('/carthasp',controller.Insertcarthasproduct)
+router.post('/addwhis',controller.addwhis)
+router.delete('/delwhis',controller.delwhis)
 router.get('/carthasp/:id',controller.Productfromcard)
 router.delete("/removeproduct/:cartid/:productid",controller.Removeproductfromcart);
 router.get('/namegategorie/:id',controller.Namecategorie)

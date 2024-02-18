@@ -3,7 +3,16 @@ const mysql = require('mysql2')
 
 
 
-const sequelize = new Sequelize('e-commerce', 'root', "mars", {
+
+
+
+
+
+
+
+const sequelize = new Sequelize('e-commerce', 'root', 'mars', {
+
+
 
     host:'localhost',
     dialect:'mysql'
@@ -105,7 +114,9 @@ const User = sequelize.define('user', {
   
   
   const CartHasProduct = sequelize.define('cart_has_product', {
-   
+    quantitycp: {
+      type: DataTypes.INTEGER,
+    }
   });
   
 

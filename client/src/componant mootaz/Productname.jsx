@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 function Productname() {
   const [product, setProduct] = useState({});
   const [namecat, setNamecat] = useState("");
-
+  const { id } = useParams()
   useEffect(() => {
     const Data = async () => {
       try {
         const productres = await axios.get(
-          `http://localhost:8000/cart/oneproduct/8`
+          `http://localhost:8000/cart/oneproduct/${id}`
         );
         setProduct(productres.data[0]);
 

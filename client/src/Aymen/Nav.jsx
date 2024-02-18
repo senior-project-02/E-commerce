@@ -49,12 +49,12 @@ function Nav() {
             </div>
             <div className="w-[66px] h-6 justify-center items-center flex">
               <p className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href='/'> Contact</a>
+                <a href='/Contact'> Contact</a>
               </p>
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                <a href='/'>About</a>
+                <a href='/About'>About</a>
               </div>
             </div>
             <div className="w-[61px] h-6 justify-center items-center flex">

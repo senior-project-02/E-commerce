@@ -6,7 +6,7 @@ const crypto=require ('crypto');
 
 
 
-
+const secretKey = crypto.randomBytes(32).toString('hex');
 
 module.exports = {
 
@@ -19,16 +19,11 @@ module.exports = {
      .catch ((err)=>{console.log(err)}) 
      
     },
-      
-  
-
   getUserByName:  function (req, res) {
-  
        db.User.findOne({ where: { name:req.params.name} }).then((data)=>{
         res.status(200).json(data)
       })
       .catch ((err)=>{console.log(err)}) 
-     
     },
 
      
@@ -45,6 +40,12 @@ module.exports = {
       
     
   },
+
+
+
+
+
+
 
   SingUp:  function (req, res) {
     const hashedPassword = bcrypt.hashSync(req.body.password, 8)
@@ -94,55 +95,84 @@ module.exports = {
     
 // Login in functions 
 
-loginIn :function (req, res)  {
+
+
+loginIn: async function (req, res) {
+  try {
+    const userResults = await db.User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    });
+
+    if (!userResults) {
+      return res.json('Invalid email');
+    }
+    console.log('Outside getUserByEmail:', userResults);
+    const isPasswordValid = bcrypt.compareSync(req.body.password, userResults.password);
+    if (!isPasswordValid) {
+      res.json('Invalid Password');
+    } else {
+      const token = jwt.sign({ email: userResults.email, name: userResults.name ,iduser: userResults.iduser,role:userResults.role }, secretKey, { expiresIn: '3h' });
+      res.json({ token: token });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json(error);
+  }
+},
+
+
+
+
+// controllers/user.js
+
+
+updateUser : async function (req, res) {
+  try {
+    const {name,lastname, email, image, password, newPassword} = req.body;
+    console.log(req.body, "this is the body");
+    console.log(password, "hetha lpass");
+
+    // get the user id from the params
+    const userId = req.params.id;
+
+    // find the user by id
+    const userToUpdate = await db.User.findByPk(userId);
+    if (!userToUpdate) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, userToUpdate.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: 'Invalid Password' });
+    }
+
+    const hashedNewPassword = await bcrypt.hashSync(newPassword, 10);
     
-    const secretKey = crypto.randomBytes(32).toString('hex')
-  
-    console.log( secretKey,"this is the secretkey");
 
-    const { name, password } = req.body
-    db.User.findOne({name})
-    .then((user) => {
-        if (!user) {
-            return res.status(401).json({ error: 'Authentication failed' });
-        }
-        const passwordMatch =bcrypt.compare(password, user.password);
-        if (!passwordMatch) {
-            return res.status(401).json({ error: 'Authentication failed' });
-        }
-        try {
-          const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
-              expiresIn: '1h',
-          });
-          res.status(200).json({token: token });
-        } catch (error) {
-          res.status(500).json({ error: 'Login failed' }); 
-        } 
-    })
    
-}, 
-// getUserData : (req, res) => {
-//   //verify the JWT token generated for the user
-//   jwt.verify(req.token, 'privatekey', (err, authorizedData) => {
-//     if(err){
-//       //If error send Forbidden (403)
-//       console.log('ERROR: Could not connect to the protected route');
-//       res.sendStatus(403);
-//     } else {
-//       //If token is successfully verified, we can send the autorized data 
-//       res.json({
-//         message: 'Successful log in',
-//         authorizedData
-//       });
-//       console.log('SUCCESS: Connected to protected route');
-//     }
-//   });
-// }
-  
+    await userToUpdate.update({
+      name, // use name instead of newname
+      lastname,
+      email,
+      image,
+      password: hashedNewPassword,
+    });
 
-
+    console.log(hashedNewPassword, "hash pass");
+    return res.status(200).json({ userToUpdate: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error updating password:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}
 
 }
+
+
+
 
     
 
