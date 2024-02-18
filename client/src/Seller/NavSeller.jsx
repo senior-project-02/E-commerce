@@ -9,13 +9,16 @@ function classNames(...classes) {
 }
 
 function Nav() {
+  
+
+  
   const navigate = useNavigate();
- 
+
   return (
     <>
-      
+
       {/* THE NAv bar */}
-      <div  style={{marginTop:"1%" , marginLeft:"8.4%"}} className="  justify-center items-center gap-[9.25rem] inline-flex">
+      <div style={{ marginTop: "1%", marginLeft: "8.4%" }} className="  justify-center items-center gap-[9.25rem] inline-flex">
         <div className="justify-center items-start gap-[11.8rem] flex">
           <div className="w-[7.3rem] h-6 justify-center items-center flex">
             <div className="text-black text-2xl font-bold font-['Inter'] leading-normal tracking-wide">
@@ -24,8 +27,8 @@ function Nav() {
           </div>
           <div className="justify-start items-start gap-12 flex" style={{ cursor: 'pointer' }} >
             <div className="flex-col justify-center items-center inline-flex">
-              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-              Product 
+              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={() => { navigate('/Seller/ProductList') }}>
+                Product
               </div>
               <div className="w-12 h-[0px] opacity-50 justify-center items-center inline-flex">
                 <div className="w-12 h-[0px] border border-black"></div>
@@ -33,17 +36,17 @@ function Nav() {
             </div>
             <div className="w-[66px] h-6 justify-center items-center flex">
               <p className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                 Category
+                Category
               </p>
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
-              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={()=>{navigate("/Seller/AddProduct")}}>
-                Add 
+              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={() => { navigate("/Seller/AddProduct") }}>
+                Add
               </div>
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                About
+                Contact
               </div>
             </div>
           </div>
@@ -51,14 +54,17 @@ function Nav() {
         <div className="justify-center items-center gap-6 flex">
           <div className="pl-5 pr-3 py-[7px] bg-neutral-100 rounded flex-col justify-center items-center gap-2.5 inline-flex">
             <div className="justify-center items-center gap-[34px] inline-flex">
-              <input className="opacity-50 text-black text-xs font-normal font-['Poppins'] leading-[18px] pl-5 pr-3 py-[7px] bg-neutral-100 rounded flex-col justify-center items-center gap-2.5 inline-flex" type="text" id="lname" name="lname" placeholder="What are you looking for?" />
+              <input className="opacity-50 text-black text-xs font-normal font-['Poppins'] leading-[18px] pl-5 pr-3 py-[7px] bg-neutral-100 rounded flex-col justify-center items-center gap-2.5 inline-flex" type="text" id="lname" name="lname" placeholder="What are you looking for?"
+                 />
               <button>
-                <box-icon name='search'></box-icon>
+                <box-icon name='search'
+
+                ></box-icon>
               </button>
             </div>
           </div>
           <div className="justify-center items-center gap-4 flex">
-            
+
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
