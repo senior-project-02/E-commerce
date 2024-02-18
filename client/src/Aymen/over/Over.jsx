@@ -2,7 +2,7 @@ import 'boxicons'
 
 function Over() {
     return (
-        <div style={{display:"flex"}}  className=" mt-20 justify-center">
+        <div style={{display:"flex"}}  className=" mb-24 mt-24 justify-center">
             <div   className=" justify-center items-center gap-[88px] inline-flex">
                 <div className="flex-col justify-start items-center gap-6 inline-flex">
                     <div className="w-20 h-20 relative">
