@@ -3,14 +3,16 @@ import axios from 'axios'
 import './SignUp.css'
 import Nav from '../Aymen/Nav'
 import Footer from '../Aymen/Footer'
+import { useNavigate } from 'react-router-dom';
 function SignUp() {
 const [name,setName]=useState("")
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
 const [role,setRole]=useState("") 
 
-
+const navigate = useNavigate();
 const sign = () => {
+  
   axios.post(
     "http://localhost:8000/auth/signup",
     {
@@ -117,7 +119,7 @@ const sign = () => {
 
         </div>
         <div className="Frame752 flex-col justify-start items-start gap-4 flex">
-        <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={()=> sign()} >
+        <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={() => { sign(); navigate("/Login"); }}>
   <div className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">
     Create Account
   </div>

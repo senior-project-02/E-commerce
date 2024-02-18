@@ -7,8 +7,10 @@ import axios from 'axios';
 import './SignUp.css'
 import Nav from '../Aymen/Nav'
 import Footer from '../Aymen/Footer'
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
 const [token,setToken]=useState("")
@@ -27,15 +29,33 @@ console.log(header,"this is header");
 const sajl=()=>{  
         axios.post("http://localhost:8000/auth/login",{
            email: email,
+
            password: password
        },header
         ).then((response)=>{
            setToken(response.data.token)
            const tkn = jwtDecode(response.data.token)
            setUser(tkn)
+          
+       })
+       
+       const { role } = user;
+       if (role === 'admin') {
+         navigate(`Admin/All?${user.iduser}`);
+       } else if (role === 'user') {
+         navigate(`/?${user.iduser}`);
+       } else if (role === 'seller') {
+         navigate('/Seller');
+       } else {
+        
+         navigate('/');
+       }
+     }
+       
+       
+       
+     
 
-       }).catch ((error)=>{console.log(error)} )  
-}
 useEffect(() => {
    const allCookies = Cookies.get("token");
    console.log('All Cookies:', allCookies);
@@ -72,7 +92,7 @@ useEffect(() => {
         placeholder="email"
         onChange={(e)=>{setEmail(e.target.value)}}
     />
-    </div>
+    </div> 
     <div className="flex-col justify-start items-start gap-2 flex">
       <div className="opacity-40 text-black text-base font-normal font-['Poppins'] leading-normal"></div>
       <input
@@ -84,9 +104,9 @@ useEffect(() => {
     </div>
         </div>
         <div className="Frame752 flex-col justify-start items-start gap-4 flex">
-        <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={()=> sajl()} >
+        <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={()=> sajl()  } >
   <div className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">
-    Login
+    Login 
   </div>
 </button> 
         </div>

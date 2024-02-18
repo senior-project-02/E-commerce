@@ -6,6 +6,8 @@ import Login from './Ahmed/Login';
 import SignUp from './Ahmed/SignUp'
 import Home from './Aymen/Home';
 import Account from './Ahmed/Account';
+import Contact from './Ahmed/Contact';
+import About from './Ahmed/About';
 
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
 
   function handleLogin(user) {
     setCookie("user", user, { path: "/" });
+
   }
   return (
     <div>
@@ -27,11 +30,17 @@ function App() {
     </CookiesProvider>
 
 <Router>
+
       <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/Account' element={<Account/>}/>
+      <Route path='/Contact' element={<Contact/>}/>  
+      <Route path='/About' element={<About/>}/>
+
+
+
 
       </Routes>
       </Router>

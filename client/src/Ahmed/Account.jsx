@@ -4,8 +4,10 @@ import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import Nav from '../Aymen/Nav';
 import Footer from '../Aymen/Footer';
+import { useNavigate } from 'react-router-dom';
 
 function Account() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [lastname, setLastName] = useState('');
   const [image, setImage] = useState('');
@@ -62,10 +64,41 @@ function Account() {
       });
   };
 
+
+  const uplodeimages = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', image);
+      formData.append('upload_preset','z7bg588b');
+
+      const res = await axios.post('https://api.cloudinary.com/v1_1/dhvwa9hnm/image/upload', formData);
+
+      console.log("this is the url", res.data.secure_url);
+      await axios.put("http://localhost:3600/user/updateImage", {
+        id: decToken.user[0].iduser,
+        image: res.data.public_id || res.data.secure_url
+      }, {headers: {
+        Authorization : `Bearer ${token}`
+    }
+  });
+
+      
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   
 
   const handelchange = () => {
     updati();
+  };
+  const handleFileChange = (event) => {
+    if (event.target.files[0]) {
+      setImage(event.target.files[0])
+      console.log(setImage, "this is imageeee")
+    }
   };
   return (
 
@@ -146,11 +179,11 @@ function Account() {
     <div className="PlaceboxInfo w-[330px] h-[50px] relative">
       <div className="PlaceToInfoBox w-[330px] h-[50px] left-0 top-0 absolute bg-neutral-100 rounded" />
       <input
-        type="text"
+        type="file"
         placeholder="image"
         className="Md left-[16px] top-[13px] absolute opacity-50 text-black text-base font-normal font-['Poppins'] leading-normal"
         style={{ width: '100%', height: '100%', border: 'none', outline: 'none', backgroundColor: 'transparent' }}
-        onChange={(e)=>{setImage(e.target.value)}}
+        onChange={{handleFileChange}} 
       />
 
     </div>
@@ -197,7 +230,8 @@ function Account() {
  
   <div className="Button px-12 py-4 bg-red-500 rounded justify-center items-center gap-2.5 flex">
   
-  <button className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal"    onClick={()=>  handelchange()}   >Save Changes/</button>
+  <button className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal" onClick={() => { handelchange(); uplodeimages(); navigate("/") ;alert("Data Update ") }}>Save Changes</button>
+
 </div>
 
 </div>
