@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const user =require("../controllers/user")
 router.post('/createProduct2',user.createProduct)
-router.post('/allprodect',user.getProductAll)
-router.post('/imagesof',user.getImageOne)
+router.get('/allprodect',user.getProductAll)
+router.get('/imagesof',user.getImageOne)
+router.post('/createImage/:id',user.createImage)
 
 
 module.exports = router;

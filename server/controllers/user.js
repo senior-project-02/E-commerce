@@ -29,5 +29,18 @@ const getImageOne = (req, res) => {
 
 }
 
+const createImage = (req, res) => {
 
-module.exports = {createProduct,getProductAll,getImageOne}
+    const newImage = {
+        imageurl: req.body.imageurl,
+        product_idproduct: req.params.id
+    }
+    db.Image.create(newImage).then(() => {
+        res.json('imageCreated')
+    })
+        .catch((err) => {
+            res.status(500).json(err)
+        })
+}
+
+module.exports = {createProduct,getProductAll,getImageOne,createImage}
