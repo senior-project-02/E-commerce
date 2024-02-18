@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Aymen/Nav.jsx";
 import Footer from "../Aymen/Footer.jsx";
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 const Productcart = () => {
   const [products, setProducts] = useState([]);
   const [pq, setPq] = useState([]);
   const [image, setImage] = useState([]);
+  const [idc,setIdc]=useState(0)
   const { id } = useParams()
   const navigate = useNavigate();
   
@@ -14,7 +15,7 @@ const Productcart = () => {
     const Data = async () => {
       try {
         const cartt = await axios.get(`http://localhost:8000/cart/getcart/${id}`);
-
+        setIdc(cartt.data[0].idcart)
         const carthasproduct = await axios.get(
           `http://localhost:8000/cart/carthasp/${cartt.data[0].idcart}}`
         );
@@ -49,7 +50,7 @@ const Productcart = () => {
   }, []);
   const upd = async () => {
     try {
-      const carttt = await axios.get(`http://localhost:8000/cart/getcart/1`);
+      const carttt = await axios.get(`http://localhost:8000/cart/getcart/${idc}`);
       const x = carttt.data[0];
       x.status = "end";
 

@@ -32,8 +32,8 @@ return(
           onChange={(e)=>{setRole(e.target.value)}}
         >
           <option value="Admin">Admin</option>
-          <option value="Buyer">Buyer</option>
           <option value="Seller">Seller</option>
+          <option value="User">User</option>
 
         </select>
       </div>

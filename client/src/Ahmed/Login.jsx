@@ -41,7 +41,7 @@ const sajl=()=>{
        
        const { role } = user;
        if (role === 'admin') {
-         navigate(`Admin/All?${user.iduser}`);
+         navigate(`/Admin/All`);
        } else if (role === 'user') {
          navigate(`/?${user.iduser}`);
        } else if (role === 'seller') {
