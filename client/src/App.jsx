@@ -16,6 +16,7 @@ import SideBar from './Admin/SideBar';
 import AllTable from './Admin/AllTable';
 import EdditRole from './Admin/EditRole';
 import CategoryList from './Admin/Category';
+import Wishlist from './Aymen/wishList/WishList';
 
 
 
@@ -37,7 +38,7 @@ function App() {
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/Seller' element={<Seller/>}/>
       <Route path='/Seller/AddProduct' element={<AddProduct/>}/>
-
+      <Route path='/Wishlist/:id' element={<Wishlist/>}/>
       <Route path='/Seller/EditProduct' element={<EditProduct/>}/>
       <Route path='/Seller/ProductList' element={<Seller/>}/>
 

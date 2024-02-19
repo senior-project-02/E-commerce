@@ -165,6 +165,19 @@ const delwhis = async (req, res) => {
       console.log(err);
     });
 }
+const allwhis = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = await db.Whislist.findAll({
+      where: {
+        user_iduser: id,
+      },
+    });
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 module.exports = {
   Oneproduct,
@@ -179,5 +192,6 @@ module.exports = {
   Removeproductfromcart,
   Namecategorie,
   addwhis,
-  delwhis
+  delwhis,
+  allwhis
 };
