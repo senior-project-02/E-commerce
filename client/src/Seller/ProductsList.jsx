@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
-const TABLE_HEAD = ["Product", "Sales", "Rating", "Quantity", "Price", "", ""];
+const TABLE_HEAD = ["Product","Size", "Rating", "Quantity", "Price", "", ""];
 
 
 
@@ -102,90 +102,85 @@ const ProductList = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((oneProduct, index) => {
-            const isLast = 2;
-            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-
-            return (
-              <tr key={oneProduct.namep}>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="text-black text-base font-normal font-['Poppins'] leading-normal"
-                    style={{ fontSize: "16px", fontfamily: 'Poppins' }}
-                  >
-                    {oneProduct.namep}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                    style={{ fontSize: "16px", fontfamily: 'Poppins' }}
-                  >
-                    {""}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                    style={{ fontSize: "16px", fontfamily: 'Poppins' }}
-                  >
-                    {renderStars(oneProduct.ratingp)}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <input
-                    type="number"
-                    value={oneProduct.quantityp}
-                    onChange={(event) => handleQuantityChange(oneProduct.idproduct, event)}
-                    
-                    className="appearance-none block w-20 bg-white border border-gray-300 rounded-md py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-red-500"
-                  />
-                </td>
-                <td className={classes}>
-                <input
-                    type="number"
-                    value={oneProduct.pricep}
-                    onChange={(e) => {
-                      // Handle quantity change if needed
-                    }}
-                    className="appearance-none block w-20 bg-white border border-gray-300 rounded-md py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-red-500"
-                  />
-                </td>
-
-                <td className={classes}>
-                  <Typography
-                    as="a"
-                    href="#"
-                    variant="small"
-                    color="blue-gray"
-                    className="font-medium"
-                    style={{ fontSize: "16px", fontfamily: 'Poppins' }}
-                  >
-                    <box-icon type='solid' name='edit-alt' onClick={() => { navigate(`/Seller/EditProduct?product=${encodeURIComponent(JSON.stringify(oneProduct))}`) }}></box-icon>
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    as="a"
-                    href="#"
-                    variant="small"
-                    color="blue-gray"
-                    className="font-medium"
-                    style={{ fontSize: "16px", fontfamily: 'Poppins' }}
-                  >
-                    <box-icon name='trash' onClick={() => { deleteProduct(oneProduct.idproduct), window.location.reload() }} ></box-icon>
-                  </Typography>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+  {products.map((oneProduct, index) => {
+    return (
+      <tr key={oneProduct.namep}>
+        <td className="p-4">
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className="text-black text-base font-normal font-['Poppins'] leading-normal"
+            style={{ fontSize: "16px", fontfamily: 'Poppins' }}
+          >
+            {oneProduct.namep}
+          </Typography>
+        </td>
+        <td className="p-4">
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className="font-normal"
+            style={{ fontSize: "16px", fontfamily: 'Poppins' }}
+          >
+            {oneProduct.sizep}
+          </Typography>
+        </td>
+        <td className="p-4">
+          <Typography
+            variant="small"
+            color="blue-gray"
+            className="font-normal"
+            style={{ fontSize: "16px", fontfamily: 'Poppins' }}
+          >
+            {renderStars(oneProduct.ratingp)}
+          </Typography>
+        </td>
+        <td className="p-4">
+          <input
+            type="number"
+            value={oneProduct.quantityp}
+            onChange={(event) => handleQuantityChange(oneProduct.idproduct, event)}
+            className="appearance-none block w-20 bg-white border border-gray-300 rounded-md py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-red-500"
+          />
+        </td>
+        <td className="p-4">
+          <input
+            type="number"
+            value={oneProduct.pricep}
+            onChange={(e) => {
+              // Handle quantity change if needed
+            }}
+            className="appearance-none block w-20 bg-white border border-gray-300 rounded-md py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:border-red-500"
+          />
+        </td>
+        <td className="p-4">
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            color="blue-gray"
+            className="font-medium"
+            style={{ fontSize: "16px", fontfamily: 'Poppins' }}
+          >
+            <box-icon type='solid' name='edit-alt' onClick={() => { navigate(`/Seller/EditProduct?product=${encodeURIComponent(JSON.stringify(oneProduct))}`) }}></box-icon>
+          </Typography>
+        </td>
+        <td className="p-4">
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            color="blue-gray"
+            className="font-medium"
+            style={{ fontSize: "16px", fontfamily: 'Poppins' }}
+          >
+            <box-icon name='trash' onClick={() => { deleteProduct(oneProduct.idproduct), window.location.reload() }} ></box-icon>
+          </Typography>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
       </table>
     </Card>
   );

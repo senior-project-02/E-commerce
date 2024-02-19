@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import NavSeller from "./NavSeller"
+import Footer from '../Aymen/Footer'
 
 import { Image } from 'cloudinary-react';
 import { useNavigate } from "react-router-dom";
@@ -235,7 +236,9 @@ const AddProduct = () => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
+        
     )
 
 }
