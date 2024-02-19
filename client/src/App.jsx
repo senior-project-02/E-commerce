@@ -24,6 +24,9 @@ import Detailsproduct from './componant mootaz/Detailsproduct';
 import Productcart from './componant mootaz/Productcart'
 import AllUser from './Admin/AllUser';
 import AllSeller from './Admin/AllSeller';
+import Wishlist from "./Aymen/wishList/WishList"
+import ContactSeller from './Seller/ContactSeller';
+import ProductListByCategory from'./Admin/ProductListByCategory'
 
 
 
@@ -41,6 +44,7 @@ function App() {
 
       <Route path='/' element={<Home/>}/>
       <Route path='/productDetails' element={<Detailsproduct/>}/>
+      <Route path="/wishList" element={<Wishlist/>}/>
 
       <Route path='/Login' element={<Login/>}/>
       <Route path='/signup' element={<SignUp/>}/>
@@ -51,12 +55,15 @@ function App() {
       <Route path='/Seller/AddProduct' element={<AddProduct/>}/>
       <Route path='/Seller/EditProduct' element={<EditProduct/>}/>
       <Route path='/Seller/ProductList' element={<Seller/>}/>
+      <Route path='/Seller/Contact' element={<ContactSeller/>}/>
+
       
       <Route path='/Admin/All' element={<AllTable/>}/>
       <Route path='/Admin/EditRole' element={<EdditRole/>}/>
       <Route path='/Admin/CategoryList' element={<CategoryList/>}/>
       <Route path='/Admin/user' element={<AllUser/>}/>
       <Route path='/Admin/seller' element={<AllSeller/>}/>
+      <Route path="/Admin/categories/products" element={ProductListByCategory} />
       
 
       
