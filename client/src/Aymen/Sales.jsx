@@ -15,12 +15,14 @@ function Sales() {
   const [product, setProduct] = useState([]);
   const [images, setImages] = useState([]);
   const [wishList, setWishList] = useState([]);
+  const { id } = useParams()
   useEffect(() => {
     const Data = async () => {
       try {
         const pr = await axios.get("http://localhost:8000/user/allprodect");
         setProduct(pr.data.slice(0, 4));
         const array = [];
+        console.log(id);
         const t=[]
         for (const i of pr.data.slice(0, 4)) {
           await axios
@@ -42,7 +44,7 @@ function Sales() {
   }, []);
   const add = async (x) => {
     try {
-      const cartt = await axios.get(`http://localhost:8000/cart/getcart/1`);
+      const cartt = await axios.get(`http://localhost:8000/cart/getcart/${id}`);
       if (cartt.data.length > 0) {
         const objj = {
           quantitycp: 1,
@@ -53,18 +55,18 @@ function Sales() {
       } else {
         const obj = {
           status: "encours",
-          user_iduser: 1,
+          user_iduser: id,
         };
         const xt = await axios.post("http://localhost:8000/cart/createcart", obj);
         console.log(xt.data);
         const ob = {
-          quantitycp: 1,
+          quantitycp: id,
           cart_idcart: xt.data.idcart,
           product_idproduct: x,
         };
         await axios.post("http://localhost:8000/cart/carthasp", ob);
       }
-      navigate(`/cart/1`)
+      
     } catch (err) {
       console.error(err);
     }
@@ -72,7 +74,7 @@ function Sales() {
 
   const addwishlist = async (k,l) => {
     const ob = {
-      user_iduser: 1,
+      user_iduser: id,
       product_idproduct:k,
     };
     if (wishList[l] === false) {
@@ -149,6 +151,7 @@ function Sales() {
                   <div className="w-[270px] h-[41px] left-0 top-[209px] absolute bg-black rounded-bl rounded-br"></div>
                   <div className="left-[87px] top-[217px] absolute text-white text-base font-medium font-['Poppins'] leading-normal"onClick={()=>{
                     add(e.idproduct)
+                    navigate(`/cart/${id}`)
                   }}>
                     Add To Cart
                   </div>
@@ -179,7 +182,7 @@ function Sales() {
                     <img
                       className="w-[191px] h-[101px]"
                       src={images[i]}
-                      onClick={() => navigate(`/product/1/${e.idproduct}`)}
+                      onClick={() => navigate(`/product/${id}/${e.idproduct}`)}
                     />
                   </div>
                 </div>

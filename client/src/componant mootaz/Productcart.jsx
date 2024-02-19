@@ -161,7 +161,7 @@ const Productcart = () => {
           </div>
           <div className="flex justify-between items-center w-full mt-6">
             <button className="border border-black rounded px-4 py-2" onClick={()=>{
-              navigate(`/?${id}`)
+              navigate(`/${id}`)
             }}>
               Return To Shop
             </button>
@@ -200,7 +200,7 @@ const Productcart = () => {
                 className="bg-red-500 text-white rounded px-4 py-2 mt-6"
                 onClick={() => {
                   upd();
-                  navigate(`/?${id}`)
+                  navigate(`/${id}`)
                 }}
               >
                 Proceed to Checkout
