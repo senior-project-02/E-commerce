@@ -18,7 +18,7 @@ const Detailsproduct = () => {
   const addwishlist = async () => {
     const ob={
       user_iduser:id1,
-      product_idproduct:1
+      product_idproduct:id2
     }
     if (wish === false) {
      await axios.post(`http://localhost:8000/cart/addwhis`,ob).then(() => {
@@ -58,7 +58,7 @@ const Detailsproduct = () => {
       console.error(err);
     }
   };
-  ;
+  
 
   return (
     <div className="w-1/3 h-[450px] ml-4">
@@ -202,7 +202,7 @@ const Detailsproduct = () => {
               <button
                 onClick={() => {
                   add();
-                  navigate(`/${id1}`)
+                  navigate(`/cart/${id1}`)
                 }}
               >
                 Buy Now

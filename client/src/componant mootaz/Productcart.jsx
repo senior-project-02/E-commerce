@@ -50,7 +50,7 @@ const Productcart = () => {
   }, []);
   const upd = async () => {
     try {
-      const carttt = await axios.get(`http://localhost:8000/cart/getcart/${idc}`);
+      const carttt = await axios.get(`http://localhost:8000/cart/getcart/${id}`);
       const x = carttt.data[0];
       x.status = "end";
 

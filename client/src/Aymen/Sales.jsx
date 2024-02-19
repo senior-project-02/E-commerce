@@ -5,53 +5,98 @@ import { CiStar } from "react-icons/ci";
 import { FiHeart } from "react-icons/fi";
 // import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams,useNavigate } from 'react-router-dom';
+
 import ProductCountdown from "./time/ProductCountdown";
 import React, { useEffect, useState } from "react";
 
 function Sales() {
+  const navigate = useNavigate();
   const [product, setProduct] = useState([]);
   const [images, setImages] = useState([]);
-  const [idp, setIdp] = useState(1);
+  const [wishList, setWishList] = useState([]);
+  const { id } = useParams()
   useEffect(() => {
     const Data = async () => {
       try {
         const pr = await axios.get("http://localhost:8000/user/allprodect");
         setProduct(pr.data.slice(0, 4));
         const array = [];
+        console.log(id);
+        const t=[]
         for (const i of pr.data.slice(0, 4)) {
           await axios
             .get(`http://localhost:8000/cart/image/${i.idproduct}`)
             .then((res) => {
               array.push(res.data[0].imageurl);
+              t.push(false)
             })
             .catch((err) => console.log(err));
         }
-        console.log(array);
+        console.log(t,'zenfnjkzefn');
         setImages(array);
+        setWishList(t)
       } catch (err) {
         console.log(err);
       }
     };
     Data();
   }, []);
-  const [wish, setWish] = useState(false);
-  const addwishlist = async () => {
+  const add = async (x) => {
+    try {
+      const cartt = await axios.get(`http://localhost:8000/cart/getcart/${id}`);
+      if (cartt.data.length > 0) {
+        const objj = {
+          quantitycp: 1,
+          cart_idcart: cartt.data[0].idcart,
+          product_idproduct:x,
+        };
+        await axios.post("http://localhost:8000/cart/carthasp", objj);
+      } else {
+        const obj = {
+          status: "encours",
+          user_iduser: id,
+        };
+        const xt = await axios.post("http://localhost:8000/cart/createcart", obj);
+        console.log(xt.data);
+        const ob = {
+          quantitycp: id,
+          cart_idcart: xt.data.idcart,
+          product_idproduct: x,
+        };
+        await axios.post("http://localhost:8000/cart/carthasp", ob);
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const addwishlist = async (k,l) => {
     const ob = {
-      user_iduser: 1,
-      product_idproduct: idp,
+      user_iduser: id,
+      product_idproduct:k,
     };
-    if (wish === false) {
+    if (wishList[l] === false) {
       await axios
-        .post("http://localhost:8000/cart/addwhis,ob")
-        .then(() => {})
+        .post("http://localhost:8000/cart/addwhis",ob)
+        .then(() => {
+          console.log('addeeddwhi');
+        })
         .catch((err) => console.log(err));
     } else {
       await axios
         .delete("http://localhost:8000/cart/delwhis", { data: ob })
-        .then(() => {})
+        .then(() => {
+          console.log('delwiss');
+        })
         .catch((err) => console.log(err));
     }
-    setWish((prev) => !prev);
+    setWishList((prev) => {
+      const newList = [...prev];
+      newList[l] = !prev[l];
+      return newList;
+    })
   };
   console.log(product);
   console.log(images);
@@ -104,25 +149,20 @@ function Sales() {
                     </div>
                   </div>
                   <div className="w-[270px] h-[41px] left-0 top-[209px] absolute bg-black rounded-bl rounded-br"></div>
-                  <div className="left-[87px] top-[217px] absolute text-white text-base font-medium font-['Poppins'] leading-normal">
+                  <div className="left-[87px] top-[217px] absolute text-white text-base font-medium font-['Poppins'] leading-normal"onClick={()=>{
+                    add(e.idproduct)
+                    navigate(`/cart/${id}`)
+                  }}>
                     Add To Cart
                   </div>
                   <div className="left-[224px] top-[12px] absolute flex-col justify-start items-start gap-2 inline-flex">
                     <div className="w-[34px] h-[34px] relative">
-                      <div className="w-[34px] h-[34px]  bg-white rounded-full flex justify-center items-center">
-                        <button
-                          onClick={() => {
-                            addwishlist();
-                            setIdp(e.idproduct);
-                          }}
-                        >
-                          <FiHeart
-                            className={
-                              wish
-                                ? "text-red-500 w-28 h-8"
-                                : "text-black w-17 h-10"
-                            }
-                          />
+                      <div className="w-[34px] h-[34px]  bg-white rounded-full flex justify-center items-center"
+                      onClick={() => {
+                        addwishlist(e.idproduct,i);
+                      }}>
+                        <button>
+                          <FiHeart className={wishList[i] ? "text-red-500 w-28  h-8" : "text-black w-28  h-8"} />
                         </button>
                       </div>
                       <div className="w-6 h-6 px-1 py-[5px] left-[5px] top-[5px] absolute justify-center items-center inline-flex"></div>
@@ -142,6 +182,7 @@ function Sales() {
                     <img
                       className="w-[191px] h-[101px]"
                       src={images[i]}
+                      onClick={() => navigate(`/product/${id}/${e.idproduct}`)}
                     />
                   </div>
                 </div>

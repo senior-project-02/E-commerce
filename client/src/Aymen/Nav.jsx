@@ -7,8 +7,10 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-
+import { useParams,useNavigate } from 'react-router-dom';
 function Nav() {
+  const { id } = useParams()
+  const navigate = useNavigate();
   return (
     <>
       <div style={{textAlign:"center"}} className="w-full h-12  pl-96 pr-[136px] py-3 bg-black justify-center items-center inline-flex">
@@ -41,7 +43,12 @@ function Nav() {
           <div className="justify-start items-start gap-12 flex">
             <div className="flex-col justify-center items-center inline-flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-               <a href='/'>Home</a> 
+                <div onClick={()=>{
+                  navigate(`/${id}`)
+                }}>
+                  Home
+                </div>
+               
               </div>
               <div className="w-12 h-[0px] opacity-50 justify-center items-center inline-flex">
                 <div className="w-12 h-[0px] border border-black"></div>
@@ -74,7 +81,13 @@ function Nav() {
             </div>
           </div>
           <div className="justify-center items-center gap-4 flex">
-            <a href='/wishList'> <box-icon name='heart' ></box-icon> </a>
+            <div onClick={()=>{
+              navigate(`/wishList/${id}`)
+              
+            }}>
+              <box-icon name='heart'></box-icon> 
+            </div>
+             
             <a href='/cart'>   <box-icon name='cart' ></box-icon></a>
             <Menu as="div" className="relative inline-block text-left">
               <div>
