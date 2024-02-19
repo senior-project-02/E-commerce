@@ -20,11 +20,11 @@ const EditProduct = () => {
     const product = JSON.parse(decodeURIComponent(productParam))
     const [getCategory, setGetCategory] = useState('')
     const [name, setName] = useState(product.namep)
-    const [description, setDescription] = useState(product.description);
+    const [description, setDescription] = useState(product.descriptionp);
     const [size, setSize] = useState(product.sizep);
     const [quantity, setQuantity] = useState(product.quantityp,'P');
     const [price, setPrice] = useState(product.pricep,'dt');
-    const [promotion, setPromotion] = useState(product.promp,'%');
+    const [promotion, setPromotion] = useState(product.promop,'%');
     const [color, setColor] = useState('Red')
     const [category, setCategory] = useState('Default Category');
     const [AllCategory, setAllCategory] = useState([]);
@@ -191,7 +191,7 @@ const EditProduct = () => {
                                 </div>
                                 <div className="flex flex-col justify-start items-start gap-2">
                                     <input
-                                        type="password"
+                                        type="text"
                                         className="login__input"
                                         placeholder="Size"
                                         value={size}
@@ -255,7 +255,7 @@ const EditProduct = () => {
                             </div>
                         </div>
                         <div className="Frame752 flex-col justify-start items-start gap-4 flex">
-                            <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={() => { editProduct(), window.location.reload() }} >
+                            <button className="Button px-[122px] py-4 bg-red-500 rounded justify-center items-center gap-2.5 inline-flex" onClick={() => { editProduct(), navigate('/Seller/ProductList'),window.location.reload() }} >
                                 <div className="ViewAllProducts text-neutral-50 text-base font-medium font-['Poppins'] leading-normal">
                                     Sumbit
                                 </div>

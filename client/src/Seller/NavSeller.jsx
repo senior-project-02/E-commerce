@@ -34,18 +34,14 @@ function Nav() {
                 <div className="w-12 h-[0px] border border-black"></div>
               </div>
             </div>
-            <div className="w-[66px] h-6 justify-center items-center flex">
-              <p className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
-                Category
-              </p>
-            </div>
+          
             <div className="w-12 h-6 justify-center items-center flex">
               <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={() => { navigate("/Seller/AddProduct") }}>
                 Add
               </div>
             </div>
             <div className="w-12 h-6 justify-center items-center flex">
-              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal">
+              <div className="text-center text-black text-base font-normal font-['Poppins'] leading-normal" onClick={()=>{navigate('/Seller/Contact')}}>
                 Contact
               </div>
             </div>
